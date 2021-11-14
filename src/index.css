@@ -5,6 +5,9 @@ body,
 #root {
   box-sizing: border-box;
   min-height: 100vh;
+  background: linear-gradient(175.04deg, #0085ff -3.12%, #00f0ff00 159.22%);
+  display: flex;
+  flex-direction: column;
 }
 
 body {

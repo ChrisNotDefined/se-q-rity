@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 // Generate a div with the following styles
 export const Centerer = styled.div`
-  // CSS or SASS are valid styles
+  // CSS or SASS indentations are valid styles
   display: flex;
   align-items: center;
   justify-content: center;
