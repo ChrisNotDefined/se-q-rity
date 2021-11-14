@@ -16,10 +16,6 @@ export default function NewAdmin() {
     <div>
       <FormContainer onSubmit={onFormSubmit}>
         <label>
-          Nombre de usuario
-          <Input placeholder={"Nombre de usuario"} />
-        </label>
-        <label>
           Correo Electrónico
           <Input placeholder={"Correo electrónico"} type="email" />
         </label>
