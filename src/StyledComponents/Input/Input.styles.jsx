@@ -14,4 +14,8 @@ export const Input = styled.input`
   :hover, :focus {
     box-shadow: #fffa 0 0 0px 2px;
   }
+
+  ::placeholder {
+    color: #AAA9
+  }
 `;

@@ -1,9 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../StyledComponents/Button";
+import { ErrorMsg, FieldsContainer } from "../../StyledComponents/FieldsContainer";
 import { Input } from "../../StyledComponents/Input";
 import { EMAIL_VALIDATION_REGEX, PASSWORD_STRENGTH_REGEX } from "../../utils/validations";
-import { ButtonsContainer, ErrorMsg, FormContainer, InputsContainer } from "./NewAdmin.styles";
+import { ButtonsContainer, FormContainer } from "./NewAdmin.styles";
 
 export default function NewAdmin() {
   const {
@@ -11,7 +12,10 @@ export default function NewAdmin() {
     handleSubmit,
     getValues,
     formState: { errors },
+    watch,
   } = useForm();
+
+  const [pwd, rpwd] = watch(["password", "repPass"]);
 
   const onFormSubmit = (data) => {
     console.log(data);
@@ -20,14 +24,14 @@ export default function NewAdmin() {
   return (
     <FormContainer onSubmit={handleSubmit(onFormSubmit)}>
       <div style={{ backgroundColor: "blue", height: "120px" }}></div>
-      <InputsContainer>
+      <FieldsContainer>
         <label>
           Correo Electrónico
           <Input
             placeholder={"Correo electrónico"}
             {...register("email", {
-              required: "Email is required",
-              pattern: { value: EMAIL_VALIDATION_REGEX, message: "Not a valid email" },
+              required: "El email es requerido",
+              pattern: { value: EMAIL_VALIDATION_REGEX, message: "Email inválido" },
             })}
           />
           {errors.email && <ErrorMsg>{errors.email?.message}</ErrorMsg>}
@@ -38,10 +42,11 @@ export default function NewAdmin() {
             placeholder={"Contraseña"}
             type="password"
             {...register("password", {
-              required: "Password is required",
+              required: "La contraseña es requerida",
               pattern: {
                 value: PASSWORD_STRENGTH_REGEX,
-                message: "Password must have at least 6 chars and contain lower, upper and symbols",
+                message:
+                  "La contraseña debe tener un minimo de 6 caracteres, mayúsculas, minúsculas y simbolos",
               },
             })}
           />
@@ -53,13 +58,14 @@ export default function NewAdmin() {
             placeholder={"Repetir Contraseña"}
             type="password"
             {...register("repPass", {
-              required: 'Password is required',
-              validate: (value) => value === getValues("password") || "Passwords must match",
+              required: "La contraseña es requerida",
+              validate: (value) =>
+                value === getValues("password") || "Las contraseñas no coinciden",
             })}
           />
-          {errors.repPass && <ErrorMsg>{errors.repPass?.message}</ErrorMsg>}
+          {errors.repPass && pwd !== rpwd && <ErrorMsg>las contraseñas no coinciden</ErrorMsg>}
         </label>
-      </InputsContainer>
+      </FieldsContainer>
       <ButtonsContainer>
         <Button type="submit">Registrar Administrador</Button>
         <Button type="button">Volver</Button>
