@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import ImageInput from "../../../Components/ImageInput";
-import { FieldsContainer } from "../../../StyledComponents/FieldsContainer";
+import { ErrorMsg, FieldsContainer } from "../../../StyledComponents/FieldsContainer";
 import { Input } from "../../../StyledComponents/Input";
+import { TELEPHONE_REGEX } from "../../../utils/validations";
 import {
   AddBtnContainer,
   AddButton,
@@ -15,7 +16,13 @@ import {
 } from "../NewResident.styles";
 
 function PersonnelForm({ onRemove, idx }) {
-  const { register, unregister } = useFormContext();
+  const {
+    register,
+    unregister,
+    formState: { errors },
+  } = useFormContext();
+
+  const formErrors = errors?.personnel && errors.personnel[idx];
 
   // Remove from the form state before unmount
   const handleRemove = () => {
@@ -34,19 +41,44 @@ function PersonnelForm({ onRemove, idx }) {
       <FieldsContainer>
         <label>
           Nombre
-          <Input {...register(`personnel.${idx}.name`)} />
+          <Input
+            {...register(`personnel.${idx}.name`, {
+              required: "Nombre requerido",
+            })}
+          />
+          {formErrors?.name && <ErrorMsg>{formErrors.name?.message}</ErrorMsg>}
         </label>
         <label>
           Teléfono
-          <Input {...register(`personnel.${idx}.phone`)} />
+          <Input
+            {...register(`personnel.${idx}.phone`, {
+              required: "Teléfono requerido",
+              pattern: {
+                value: TELEPHONE_REGEX,
+                message: "Teléfono inválido",
+              },
+            })}
+          />
+          {formErrors?.phone && <ErrorMsg>{formErrors.phone?.message}</ErrorMsg>}
         </label>
         <label>
           Servicio
-          <Input {...register(`personnel.${idx}.service`)} />
+          <Input
+            {...register(`personnel.${idx}.service`, {
+              required: "Especifique el servicio",
+            })}
+          />
+          {formErrors?.service && <ErrorMsg>{formErrors.service?.message}</ErrorMsg>}
         </label>
         <label>
-          Dias de trabajo
-          <Input placeholder="Lun a Vie de 10am a 6pm" {...register(`personnel.${idx}.service`)} />
+          Horario de trabajo
+          <Input
+            placeholder="Lun a Vie de 10am a 6pm"
+            {...register(`personnel.${idx}.schedule`, {
+              required: "Especifique el horario de trabajo",
+            })}
+          />
+          {formErrors?.schedule && <ErrorMsg>{formErrors.schedule?.message}</ErrorMsg>}
         </label>
       </FieldsContainer>
     </FormSection>
@@ -61,7 +93,7 @@ export default function PersonnelSection() {
   const [personnel, setPersonnel] = useState([]);
 
   const addPersonnel = () => {
-    setPersonnel((p) => [...p, Date.now()]);
+    setPersonnel((p) => [...p, `Item-${Date.now()}`]);
   };
 
   const removePersonnel = (index) => {

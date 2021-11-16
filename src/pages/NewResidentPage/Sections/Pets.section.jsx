@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import ImageInput from "../../../Components/ImageInput";
-import { FieldsContainer } from "../../../StyledComponents/FieldsContainer";
+import { FieldsContainer, ErrorMsg } from "../../../StyledComponents/FieldsContainer";
 import { Input } from "../../../StyledComponents/Input";
 import {
   AddBtnContainer,
@@ -15,7 +15,13 @@ import {
 } from "../NewResident.styles";
 
 function PetForm({ onRemove, idx }) {
-  const { register, unregister } = useFormContext();
+  const {
+    register,
+    unregister,
+    formState: { errors },
+  } = useFormContext();
+
+  const formErrors = errors?.pets && errors.pets[idx];
 
   // Remove from the form state before unmount
   const handleRemove = () => {
@@ -34,15 +40,36 @@ function PetForm({ onRemove, idx }) {
       <FieldsContainer>
         <label>
           Nombre
-          <Input placeholder="Nombre" {...register(`pets.${idx}.name`)} />
+          <Input
+            placeholder="Nombre"
+            {...register(`pets.${idx}.name`, {
+              required: "Nombre requerido",
+            })}
+          />
+          {formErrors?.name && <ErrorMsg>{formErrors.name?.message}</ErrorMsg>}
         </label>
         <label>
           Especie y Raza
-          <Input placeholder="Perro Labrador" {...register(`pets.${idx}.species`)} />
+          <Input
+            placeholder="Perro Labrador"
+            {...register(`pets.${idx}.species`, {
+              required: "Especie requerida",
+            })}
+          />
+          {formErrors?.species && <ErrorMsg>{formErrors.species?.message}</ErrorMsg>}
         </label>
         <label>
           Edad
-          <Input {...register(`pets.${idx}.age`)} />
+          <Input
+            {...register(`pets.${idx}.age`, {
+              required: "Edad requerida",
+              pattern: {
+                value: /^\d*$/,
+                message: "El valor debe ser un número",
+              },
+            })}
+          />
+          {formErrors?.age && <ErrorMsg>{formErrors.age?.message}</ErrorMsg>}
         </label>
       </FieldsContainer>
     </FormSection>
@@ -57,7 +84,7 @@ export default function PetsSection() {
   const [pets, setPets] = useState([]);
 
   const addPet = () => {
-    setPets((p) => [...p, Date.now()]);
+    setPets((p) => [...p, `Item-${Date.now()}`]);
   };
 
   const removePet = (index) => {

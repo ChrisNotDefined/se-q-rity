@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const FormArea = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: #CCC8;
+  border-radius: 0.4em;
+  margin: 0.2em;
+  padding: 0.5em;
 
   h3 {
     text-align: left;

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import styled from "styled-components";
 import ImageInput from "../../../Components/ImageInput";
-import { FieldsContainer } from "../../../StyledComponents/FieldsContainer";
+import { ErrorMsg, FieldsContainer } from "../../../StyledComponents/FieldsContainer";
 import { Input } from "../../../StyledComponents/Input";
+import { TELEPHONE_REGEX } from "../../../utils/validations";
 import {
   AddBtnContainer,
   AddButton,
@@ -15,7 +16,13 @@ import {
 } from "../NewResident.styles";
 
 function CompanionForm({ onRemove, idx }) {
-  const { register, unregister } = useFormContext();
+  const {
+    register,
+    unregister,
+    formState: { errors },
+  } = useFormContext();
+
+  const formErrors = errors?.companions && errors.companions[idx];
 
   // Remove from the form state before unmount
   const handleRemove = () => {
@@ -34,15 +41,34 @@ function CompanionForm({ onRemove, idx }) {
       <FieldsContainer>
         <label>
           Nombre
-          <Input placeholder="Nombre" {...register(`companions.${idx}.name`)} />
+          <Input
+            {...register(`companions.${idx}.name`, {
+              required: "Nombre requerido",
+            })}
+          />
+          {formErrors?.name && <ErrorMsg>{formErrors.name?.message}</ErrorMsg>}
         </label>
         <label>
           Apellidos
-          <Input placeholder="Apellidos" {...register(`companions.${idx}.lastName`)} />
+          <Input
+            {...register(`companions.${idx}.lastName`, {
+              required: "Apellido requerido",
+            })}
+          />
+          {formErrors?.lastName && <ErrorMsg>{formErrors.lastName?.message}</ErrorMsg>}
         </label>
         <label>
           Teléfono
-          <Input {...register(`companions.${idx}.number`)} />
+          <Input
+            {...register(`companions.${idx}.number`, {
+              required: "Teléfono requerido",
+              pattern: {
+                value: TELEPHONE_REGEX,
+                message: "Teléfono inválido",
+              },
+            })}
+          />
+          {formErrors?.number && <ErrorMsg>{formErrors.number?.message}</ErrorMsg>}
         </label>
       </FieldsContainer>
     </FormSection>
