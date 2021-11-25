@@ -22,3 +22,13 @@ export const MapOverlay = styled.div`
   padding: 0.5em;
   border-radius: 0.2em;
 `;
+
+export const StyledMarker = styled.div`
+  transform: translate(-50%, -100%);
+  background-color: #0045EE85;
+  padding: 0.5em;
+  border-radius: 0.2em;
+  padding-bottom: 1em;
+  width: fit-content;
+  color: white;
+`;
