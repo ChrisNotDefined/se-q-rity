@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useMap } from "../../hooks";
-import { MapContainer } from "./Map.styles";
+import { MapContainer, MapOverlay } from "./Map.styles";
 
 export default function MapPage() {
   const [lat, setLat] = useState(16.8336);
@@ -12,17 +12,24 @@ export default function MapPage() {
     setLng(center.lng);
   };
 
-  const { mapDiv } = useMap({
+  const handleZoom = (currentZoom) => {
+    setZoom(currentZoom);
+  };
+
+  const { mapDiv, mapInstace } = useMap({
     lat,
     lng,
     zoom,
     handleMove,
+    handleZoom,
   });
 
   return (
-    <div>
-      Map Page lat: {lat}, lng: {lng}
-      <MapContainer ref={mapDiv} />
-    </div>
+    <MapContainer>
+      <div className="map-div" ref={mapDiv} />
+      <MapOverlay>
+        Lat: {lat.toFixed(3)} - Lng: {lng.toFixed(3)} - Zoom: {zoom.toFixed(3)}
+      </MapOverlay>
+    </MapContainer>
   );
 }
