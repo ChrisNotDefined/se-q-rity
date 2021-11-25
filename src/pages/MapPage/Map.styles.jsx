@@ -3,13 +3,14 @@ import styled from "styled-components";
 export const MapContainer = styled.div`
   height: 80vmin;
   background-color: #00f0ff;
-  border-radius: 1em;
+  border-radius: 0.5em;
   margin: 2em;
   position: relative;
 
   .map-div {
     height: 100%;
     border-radius: inherit;
+    overflow: hidden;
   }
 `;
 

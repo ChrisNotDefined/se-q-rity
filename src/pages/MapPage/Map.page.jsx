@@ -1,8 +1,9 @@
-import mapboxgl from "mapbox-gl";
-import React, { useEffect, useRef, useState } from "react";
+import ReactMapGL from "react-map-gl";
+import React, { useState } from "react";
+import { Button } from "../../StyledComponents/Button";
 import { MapContainer, MapOverlay } from "./Map.styles";
 
-mapboxgl.accessToken =
+const mapboxToken =
   "pk.eyJ1IjoiY2hyaXNub3RkZWZpbmVkIiwiYSI6ImNrd2U5eWE1eDAycWsydnF0ZmY1dmZ4eWQifQ.KGVi14zplvNaeVsgafp6Yw";
 
 const geojson = {
@@ -34,53 +35,34 @@ const geojson = {
 };
 
 export default function MapPage() {
-  const [lat, setLat] = useState(16.8336);
-  const [lng, setLng] = useState(-99.915);
-  const [zoom, setZoom] = useState(14);
-
-  const mapDiv = useRef(null);
-  const mapInstance = useRef(null);
-
-  const handleMove = (center) => {
-    setLat(center.lat);
-    setLng(center.lng);
-  };
-
-  const handleZoom = (currentZoom) => {
-    setZoom(currentZoom);
-  };
-
-  useEffect(() => {
-    if (mapInstance.current) return;
-
-    mapInstance.current = new mapboxgl.Map({
-      container: mapDiv.current,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [lng, lat],
-      zoom: zoom ?? 9,
-    });
-
-    const handlers = {
-      move: () => {
-        handleMove(mapInstance.current.getCenter());
-      },
-
-      zoom: () => {
-        handleZoom(mapInstance.current.getZoom());
-      },
-    };
-
-    Object.entries(handlers).forEach(([key, value]) => {
-      mapInstance.current?.on(key, value);
-    });
+  const [viewport, setViewport] = useState({
+    latitude: 16.8336,
+    longitude: -99.915,
+    zoom: 14,
   });
 
   return (
-    <MapContainer>
-      <div className="map-div" ref={mapDiv} />
-      <MapOverlay>
-        Lat: {lat.toFixed(3)} - Lng: {lng.toFixed(3)} - Zoom: {zoom.toFixed(3)}
-      </MapOverlay>
-    </MapContainer>
+    <div>
+      <MapContainer>
+        {/* <div className="map-div" ref={mapDiv} />
+         */}
+        <div className="map-div">
+          <ReactMapGL
+            {...viewport}
+            width="100%"
+            height="100%"
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+            onViewportChange={setViewport}
+            mapboxApiAccessToken={mapboxToken}
+          />
+        </div>
+        <MapOverlay>
+          Lat: {viewport.latitude.toFixed(3)} - Lng: {viewport.longitude.toFixed(3)} - Zoom:{" "}
+          {viewport.zoom.toFixed(3)}
+        </MapOverlay>
+      </MapContainer>
+      <Button>Localizar Mascota</Button>
+      <Button>Centrar Residencia</Button>
+    </div>
   );
 }
