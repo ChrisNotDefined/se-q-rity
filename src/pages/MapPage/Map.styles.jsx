@@ -25,10 +25,21 @@ export const MapOverlay = styled.div`
 
 export const StyledMarker = styled.div`
   transform: translate(-50%, -100%);
-  background-color: #0045EE85;
+  background-color: #0045ee85;
   padding: 0.5em;
   border-radius: 0.2em;
   padding-bottom: 1em;
   width: fit-content;
   color: white;
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 0 max(2em, 8vw);
+  gap: max(2em, 10vw);
+
+  > * {
+    flex-basis: 40em;
+  }
 `;

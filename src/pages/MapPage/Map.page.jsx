@@ -1,7 +1,7 @@
-import ReactMapGL, { FlyToInterpolator, Marker, TRANSITION_EVENTS } from "react-map-gl";
+import ReactMapGL, { Marker } from "react-map-gl";
 import React, { useState } from "react";
 import { Button } from "../../StyledComponents/Button";
-import { MapContainer, MapOverlay, StyledMarker } from "./Map.styles";
+import { MapContainer, MapOverlay, StyledMarker, ButtonsContainer } from "./Map.styles";
 
 const mapboxToken =
   "pk.eyJ1IjoiY2hyaXNub3RkZWZpbmVkIiwiYSI6ImNrd2U5eWE1eDAycWsydnF0ZmY1dmZ4eWQifQ.KGVi14zplvNaeVsgafp6Yw";
@@ -31,6 +31,17 @@ const geojson = {
         description: "San Francisco, California",
       },
     },
+    {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [-99.867701, 16.854771],
+      },
+      properties: {
+        title: "Pet",
+        description: "Bobby (Mascota)",
+      },
+    },
   ],
 };
 
@@ -55,18 +66,17 @@ export default function MapPage() {
           >
             {geojson.features.map((f) => {
               const [lng, lat] = f.geometry.coordinates;
+              const { description } = f.properties;
 
               return (
                 <Marker key={f.geometry.coordinates} latitude={lat} longitude={lng}>
                   <StyledMarker>
+                    {description} <br />
                     {lat}, {lng}
                   </StyledMarker>
                 </Marker>
               );
             })}
-            <Marker key="manual" latitude={16.854771} longitude={-99.867701}>
-              <StyledMarker>16.854771, -99.867701</StyledMarker>
-            </Marker>
           </ReactMapGL>
         </div>
         <MapOverlay>
@@ -74,10 +84,10 @@ export default function MapPage() {
           {viewport.zoom.toFixed(3)}
         </MapOverlay>
       </MapContainer>
-      <div>
+      <ButtonsContainer>
         <Button>Localizar Mascota</Button>
         <Button>Centrar Residencia</Button>
-      </div>
+      </ButtonsContainer>
     </div>
   );
 }
