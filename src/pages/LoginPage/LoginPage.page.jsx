@@ -2,11 +2,12 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../StyledComponents/Button";
 import { Input } from "../../StyledComponents/Input";
+import { PASSWORD_STRENGTH_REGEX } from "../../utils/validations";
 import { ButtonsContainer, ErrorMsg, FormContainer, InputsContainer } from "./Login.styles";
 
 export default function Login() {
   const {
-    login,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -37,6 +38,7 @@ export default function Login() {
             {...register("password", {
               required: "Password is required",
               pattern: {
+                value: PASSWORD_STRENGTH_REGEX,
                 message: "Incorrect Password",
               },
             })}
