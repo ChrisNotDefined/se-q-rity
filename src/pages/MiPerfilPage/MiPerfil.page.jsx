@@ -15,9 +15,9 @@ export default function MiPerfil() {
       <FieldsContainer>
       <label>
           Buscar Colono
-          <Input>
+          <Input
             placeholder={"Busqueda de Colono"}
-          </Input>
+          />
       </label>
       <Button type="button">Nuevo Colono</Button>
       </FieldsContainer>
