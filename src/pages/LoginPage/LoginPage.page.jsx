@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "../../StyledComponents/Button";
 import { Input } from "../../StyledComponents/Input";
 import { PASSWORD_STRENGTH_REGEX } from "../../utils/validations";
-import { ButtonsContainer, ErrorMsg, FormContainer, InputsContainer } from "./Login.styles";
+import { ButtonsContainer, ErrorMsg, FormContainer, InputsContainer } from "./LoginPage.styles";
 
 export default function Login() {
   const {
@@ -24,7 +24,7 @@ export default function Login() {
           Nombre de Usuario
           <Input
             placeholder={"Nombre de Usuario"}
-            {...login("name", {
+            {...register("name", {
               required: "Username is required"
             })}
           />
@@ -48,7 +48,6 @@ export default function Login() {
       </InputsContainer>
       <ButtonsContainer>
         <Button type="submit">Iniciar Sesión</Button>
-        <Button type="button">Registrarse</Button>
       </ButtonsContainer>
     </FormContainer>
   );
