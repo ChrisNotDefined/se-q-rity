@@ -19,12 +19,11 @@ export default function MiPerfil() {
     }
 
     timeoutRef.current = setTimeout(async () => {
-      setWriting(false);
-      console.log(keySearch);
       if (keySearch.trim() !== "") {
         const data = await searchPerson(keySearch);
         console.log(data);
       }
+      setWriting(false);
     }, 500);
   }, [keySearch]);
 

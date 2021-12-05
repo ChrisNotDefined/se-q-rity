@@ -1,7 +1,8 @@
 import ReactMapGL, { Marker } from "react-map-gl";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../../StyledComponents/Button";
 import { MapContainer, MapOverlay, StyledMarker, ButtonsContainer } from "./Map.styles";
+import { getLocations } from "../../utils/api";
 
 const mapboxToken =
   "pk.eyJ1IjoiY2hyaXNub3RkZWZpbmVkIiwiYSI6ImNrd2U5eWE1eDAycWsydnF0ZmY1dmZ4eWQifQ.KGVi14zplvNaeVsgafp6Yw";
@@ -47,10 +48,22 @@ const geojson = {
 
 export default function MapPage() {
   const [viewport, setViewport] = useState({
-    latitude: 16.8336,
-    longitude: -99.915,
+    latitude: 21.155674,
+    longitude: -101.728608,
     zoom: 14,
   });
+
+  const [mapData, setMapData] = useState([]);
+
+  useEffect(() => {
+    const loadLocations = async () => {
+      const loc_data = await getLocations();
+      if (loc_data) setMapData(loc_data);
+      else setMapData([]);
+    };
+
+    loadLocations();
+  }, []);
 
   return (
     <div>
@@ -74,6 +87,14 @@ export default function MapPage() {
                     {description} <br />
                     {lat}, {lng}
                   </StyledMarker>
+                </Marker>
+              );
+            })}
+            {mapData.map((marker) => {
+              const { _id: id, Latitud: lat, Longitud: lng, Calle: str } = marker;
+              return (
+                <Marker key={id} latitude={+lat} longitude={+lng}>
+                  <StyledMarker>{str}</StyledMarker>
                 </Marker>
               );
             })}

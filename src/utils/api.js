@@ -10,8 +10,8 @@ export const login = async (email, pass) => {
     });
     return resp.data;
   } catch (err) {
-    console.log(err.response);
-    console.log(err.message);
+    console.error(err.response);
+    console.error(err.message);
     return null;
   }
 };
@@ -22,7 +22,17 @@ export const searchPerson = async (keyword) => {
 
     return resp.data;
   } catch (error) {
-    console.log(error.response);
-    console.log(error.message);
+    console.error(error.response);
+    console.error(error.message);
+  }
+};
+
+export const getLocations = async () => {
+  try {
+    const resp = await axios.get(`${baseURl}/ubicacion`);
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
   }
 };
