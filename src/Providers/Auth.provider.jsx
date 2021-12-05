@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext, useReducer } from "react";
 
 const AuthContext = React.createContext();
@@ -25,6 +26,7 @@ const authReducer = (state = initialState, action) => {
   const [type, payload] = action;
 
   if (type === AUTH_ACTIONS.LOGIN) {
+    axios.defaults.headers.common["auth-token"] = payload;
     return {
       ...state,
       token: payload,
@@ -32,6 +34,7 @@ const authReducer = (state = initialState, action) => {
   }
 
   if (type === AUTH_ACTIONS.LOGOUT) {
+    axios.defaults.headers.common["auth-token"] = null;
     return {
       ...state,
       token: null,

@@ -21,12 +21,12 @@ export default function Login() {
     try {
       setIsFetching(true);
       const res = await login(data.email, data.pass);
-      const loginToken = res.data.token;
+      const loginToken = res?.data.token;
       setIsFetching(false);
       dispatch(loginAction(loginToken));
     } catch (error) {
       setIsFetching(false);
-      console.log("Err: ", error);
+      console.error(error);
     }
   };
 
