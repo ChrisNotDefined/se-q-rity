@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import Spinner from "../../Components/Spinner";
+import { loginAction, useAuthContext } from "../../Providers/Auth.provider";
 import { Button } from "../../StyledComponents/Button";
 import { Input } from "../../StyledComponents/Input";
-import { PASSWORD_STRENGTH_REGEX } from "../../utils/validations";
+import { login } from "../../utils/api";
 import { ButtonsContainer, ErrorMsg, FormContainer, InputsContainer } from "./LoginPage.styles";
 
 export default function Login() {
@@ -12,8 +14,20 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  const onFormSubmit = (data) => {
-    console.log(data);
+  const [, dispatch] = useAuthContext();
+  const [isFetching, setIsFetching] = useState(false);
+
+  const onFormSubmit = async (data) => {
+    try {
+      setIsFetching(true);
+      const res = await login(data.email, data.pass);
+      const loginToken = res.data.token;
+      setIsFetching(false);
+      dispatch(loginAction(loginToken));
+    } catch (error) {
+      setIsFetching(false);
+      console.log("Err: ", error);
+    }
   };
 
   return (
@@ -21,11 +35,11 @@ export default function Login() {
       <div style={{ backgroundColor: "blue", height: "120px" }}></div>
       <InputsContainer>
         <label>
-          Nombre de Usuario
+          Email
           <Input
-            placeholder={"Nombre de Usuario"}
-            {...register("name", {
-              required: "Username is required"
+            placeholder={"Email"}
+            {...register("email", {
+              required: "Escriba su correo electrónico",
             })}
           />
           {errors.name && <ErrorMsg>{errors.name?.message}</ErrorMsg>}
@@ -35,19 +49,20 @@ export default function Login() {
           <Input
             placeholder={"Contraseña"}
             type="password"
-            {...register("password", {
-              required: "Password is required",
-              pattern: {
-                value: PASSWORD_STRENGTH_REGEX,
-                message: "Incorrect Password",
-              },
+            {...register("pass", {
+              required: "Escriba su contraseña",
             })}
           />
           {errors.password && <ErrorMsg>{errors.password?.message}</ErrorMsg>}
         </label>
       </InputsContainer>
       <ButtonsContainer>
-        <Button type="submit">Iniciar Sesión</Button>
+        {isFetching && <Spinner />}
+        {!isFetching && (
+          <Button type="submit" disabled={isFetching}>
+            Iniciar Sesión
+          </Button>
+        )}
       </ButtonsContainer>
     </FormContainer>
   );
