@@ -6,7 +6,7 @@ import { ButtonsContainer, FormContainer } from "./MiPerfil.styles";
 
 export default function MiPerfil() {
   return (
-    <FormContainer onSubmit={handleSubmit(onFormSubmit)}>
+    <FormContainer>
       <div style={{ backgroundColor: "blue", height: "120px" }}></div>
       <ButtonsContainer>
         <Button type="button">Mi Perfil</Button>
