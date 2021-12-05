@@ -1,5 +1,6 @@
 import { HashRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 import Login from "./pages/LoginPage";
 import MapPage from "./pages/MapPage";
 import NewAdminPage from "./pages/NewAdminPage";
@@ -21,7 +22,7 @@ function App() {
         <Route path="new-admin" element={<NewAdminPage />} />
         <Route path="new-resident" element={<NewResident />} />
         <Route path="map" element={<MapPage />} />
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<LoginPage/>} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </Router>
