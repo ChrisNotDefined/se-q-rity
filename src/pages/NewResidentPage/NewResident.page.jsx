@@ -20,13 +20,17 @@ export default function NewResident() {
     let companionsResults = [];
     for (let k in data.companions){
       if (data.companions.hasOwnProperty(k)){
-        companionsPromises.push(new Promise(newCompanions(k.nombre, k.telefono, k.fotografia, k.apellidos)))
+        console.log(k)
+        console.log(k.telefono)
+        console.log(k.fotografia)
+        console.log(k.apellidos)
+        companionsPromises.push(newCompanions(k.nombre, k.telefono, k.fotografia, k.apellidos));
       }
     }
-    Promise.all(companionsPromises).then(values => {
-      console.log(values);
+    await Promise.all(companionsPromises).then(values => {
+      companionsResults = values;
+      console.log(companionsResults);
     })
-    console.log("numero de acompañantes: " + count)
     //await Promise.all([await ]);
 
     const lat = Math.random() * (21.163186 - 21.143543) + 21.143543;

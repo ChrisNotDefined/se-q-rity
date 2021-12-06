@@ -113,12 +113,11 @@ export const newPersonnel = async (nombre, telefono, cargo, fotografia, diasTrab
 
 export const newCompanions = async (nombre, telefono, fotografia, apellidos) => {
   try {
-    const resp = await axios.post(`${baseURl}/personal-domestico`, {
-      nombre,
-      telefono,
-      fotografia,
-      apellidos
-    });
+    console.log(nombre)
+    console.log(telefono)
+    console.log(fotografia)
+    console.log(apellidos)
+    const resp = await axios.post(`${baseURl}/acompanianante`, {nombre,telefono, fotografia, apellidos});
     return resp.data;
   } catch (err) {
     console.log(err.response);
