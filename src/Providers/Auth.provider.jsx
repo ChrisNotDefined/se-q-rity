@@ -1,5 +1,7 @@
 import axios from "axios";
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useRef } from "react";
+import { useEffect } from "react/cjs/react.development";
+import { verifyToken } from "../utils/api";
 
 const AuthContext = React.createContext();
 AuthContext.displayName = "AuthContext";
@@ -26,7 +28,6 @@ const authReducer = (state = initialState, action) => {
   const [type, payload] = action;
 
   if (type === AUTH_ACTIONS.LOGIN) {
-    axios.defaults.headers.common["auth-token"] = payload;
     return {
       ...state,
       token: payload,
@@ -34,7 +35,6 @@ const authReducer = (state = initialState, action) => {
   }
 
   if (type === AUTH_ACTIONS.LOGOUT) {
-    axios.defaults.headers.common["auth-token"] = null;
     return {
       ...state,
       token: null,
@@ -46,6 +46,31 @@ const authReducer = (state = initialState, action) => {
 
 export default function AuthProvider({ children }) {
   const [authData, dispatch] = useReducer(authReducer, initialState);
+  const intervalRef = useRef();
+
+  const validate = async (token) => {
+    if (token !== null) {
+      const tokenResp = await verifyToken();
+      const isValid = !tokenResp.error;
+      if (!isValid) dispatch(logoutAction());
+    }
+  };
+
+  useEffect(() => {
+    if (authData.token !== null)
+      intervalRef.current = setInterval(() => {
+        validate(authData.token);
+      }, 10000);
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [authData.token]);
+
+  useEffect(() => {
+    axios.defaults.headers.common["auth-token"] = authData.token;
+    validate(authData.token);
+  }, [authData.token]);
 
   return <AuthContext.Provider value={[authData, dispatch]}>{children}</AuthContext.Provider>;
 }
