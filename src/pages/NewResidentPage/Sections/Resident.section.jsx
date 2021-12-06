@@ -21,13 +21,17 @@ export default function ResidentSection() {
       <div style={{ position: "sticky", top: '1em' }}>
         <h3>Residente</h3>
         <FormImgContainer>
-          <ImageInput />
+          <ImageInput onSelected={(file) => {
+          register(`fotografia`, {
+            value: file
+          })
+        }}/>
         </FormImgContainer>
         <FieldsContainer>
           <label>
             Nombre
             <Input
-              {...register("residentName", {
+              {...register("nombre", {
                 required: "Escriba el nombre del residente",
               })}
             />
@@ -36,7 +40,7 @@ export default function ResidentSection() {
           <label>
             Apellidos
             <Input
-              {...register("residentLastName", {
+              {...register("apellidos", {
                 required: "Escriba los apellidos del residente",
               })}
             />
@@ -45,7 +49,7 @@ export default function ResidentSection() {
           <label>
             Número Residencia
             <Input
-              {...register("residenceNumber", {
+              {...register("residencia", {
                 required: "Escriba el número de la residencia",
                 pattern: {
                   value: /^\d*$/g,
@@ -58,7 +62,7 @@ export default function ResidentSection() {
           <label>
             Número telefónico
             <Input
-              {...register("residentTel", {
+              {...register("telefono", {
                 required: "Escriba el teléfono del residente",
                 pattern: {
                   value: TELEPHONE_REGEX,
@@ -72,7 +76,7 @@ export default function ResidentSection() {
             Correo electrónico
             <Input
               type="email"
-              {...register("residentEmail", {
+              {...register("correo", {
                 required: "Escriba el correo del residente",
                 pattern: {
                   value: EMAIL_VALIDATION_REGEX,

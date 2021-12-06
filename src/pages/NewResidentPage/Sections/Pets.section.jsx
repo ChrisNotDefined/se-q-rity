@@ -32,7 +32,11 @@ function PetForm({ onRemove, idx }) {
   return (
     <FormSection>
       <FormImgContainer>
-        <ImageInput />
+        <ImageInput onSelected={(file) => {
+          register(`pets.${idx}.fotografia`, {
+            value: file
+          })
+        }}/>
         <RemoveButton type="button" onClick={handleRemove}>
           <i className="fas fa-trash"></i>
         </RemoveButton>
@@ -42,7 +46,7 @@ function PetForm({ onRemove, idx }) {
           Nombre
           <Input
             placeholder="Nombre"
-            {...register(`pets.${idx}.name`, {
+            {...register(`pets.${idx}.nombre`, {
               required: "Nombre requerido",
             })}
           />
@@ -52,7 +56,7 @@ function PetForm({ onRemove, idx }) {
           Especie y Raza
           <Input
             placeholder="Perro Labrador"
-            {...register(`pets.${idx}.species`, {
+            {...register(`pets.${idx}.especie`, {
               required: "Especie requerida",
             })}
           />
@@ -61,7 +65,7 @@ function PetForm({ onRemove, idx }) {
         <label>
           Edad
           <Input
-            {...register(`pets.${idx}.age`, {
+            {...register(`pets.${idx}.edad`, {
               required: "Edad requerida",
               pattern: {
                 value: /^\d*$/,

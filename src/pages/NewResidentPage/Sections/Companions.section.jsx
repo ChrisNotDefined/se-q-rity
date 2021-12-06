@@ -33,7 +33,11 @@ function CompanionForm({ onRemove, idx }) {
   return (
     <FormSection>
       <FormImgContainer>
-        <ImageInput />
+        <ImageInput onSelected={(file) => {
+          register(`companions.${idx}.fotografia`, {
+            value: file
+          })
+        }}/>
         <RemoveButton type="button" onClick={handleRemove}>
           <i className="fas fa-trash"></i>
         </RemoveButton>
@@ -42,7 +46,7 @@ function CompanionForm({ onRemove, idx }) {
         <label>
           Nombre
           <Input
-            {...register(`companions.${idx}.name`, {
+            {...register(`companions.${idx}.nombre`, {
               required: "Nombre requerido",
             })}
           />
@@ -51,7 +55,7 @@ function CompanionForm({ onRemove, idx }) {
         <label>
           Apellidos
           <Input
-            {...register(`companions.${idx}.lastName`, {
+            {...register(`companions.${idx}.apellidos`, {
               required: "Apellido requerido",
             })}
           />
@@ -60,7 +64,7 @@ function CompanionForm({ onRemove, idx }) {
         <label>
           Teléfono
           <Input
-            {...register(`companions.${idx}.number`, {
+            {...register(`companions.${idx}.telefono`, {
               required: "Teléfono requerido",
               pattern: {
                 value: TELEPHONE_REGEX,
@@ -87,7 +91,7 @@ export default function CompanionsSection() {
   };
 
   const addCompanion = () => {
-    setCompanions((c) => [...c, Date.now()]);
+    setCompanions((c) => [...c, `Item-${Date.now()}`]);
   };
 
   return (
