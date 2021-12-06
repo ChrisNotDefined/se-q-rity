@@ -1,6 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { useState } from "react/cjs/react.development";
+import Spinner from "../../Components/Spinner";
 import { Button } from "../../StyledComponents/Button";
 import { ErrorMsg, FieldsContainer } from "../../StyledComponents/FieldsContainer";
 import { Input } from "../../StyledComponents/Input";
@@ -19,13 +21,16 @@ export default function NewAdmin() {
   } = useForm();
 
   const [pwd, rpwd] = watch(["password", "repPass"]);
+  const [fetching, setFetching] = useState(false);
   const navigate = useNavigate();
 
   const onFormSubmit = async (data) => {
+    setFetching(true);
     const result = await registerAdmin(data.email, data.password);
     if (!result.error) {
       reset();
     }
+    setFetching(false);
   };
 
   return (
@@ -74,10 +79,19 @@ export default function NewAdmin() {
         </label>
       </FieldsContainer>
       <ButtonsContainer>
-        <Button type="submit">Registrar Administrador</Button>
-        <Button type="button" onClick={() => navigate("/")}>
-          Volver
-        </Button>
+        {!fetching && (
+          <>
+            <Button type="submit">Registrar Administrador</Button>
+            <Button type="button" onClick={() => navigate("/")}>
+              Volver
+            </Button>
+          </>
+        )}
+        {fetching && (
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Spinner height="3em" />
+          </div>
+        )}
       </ButtonsContainer>
     </FormContainer>
   );
