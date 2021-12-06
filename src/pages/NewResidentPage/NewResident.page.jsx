@@ -17,12 +17,13 @@ export default function NewResident() {
   const fullFormSubmit = async (data) => {
     let count = 0;
     let companionsPromises = [];
+    let companionsResults = [];
     for (let k in data.companions){
       if (data.companions.hasOwnProperty(k)){
         companionsPromises.push(new Promise(newCompanions(k.nombre, k.telefono, k.fotografia, k.apellidos)))
       }
     }
-    const companionsResults = Promise.all(companionsPromises).then(values => {
+    Promise.all(companionsPromises).then(values => {
       console.log(values);
     })
     console.log("numero de acompañantes: " + count)
