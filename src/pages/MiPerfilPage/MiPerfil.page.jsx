@@ -76,6 +76,7 @@ export default function MiPerfil() {
                       key={result._id}
                       title={result.nombre}
                       subtitle={result.apellidos}
+                      onClick={() => navigate(`/resident/${result._id}`)}
                     />
                   );
                 })
