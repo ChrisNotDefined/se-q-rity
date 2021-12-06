@@ -15,23 +15,60 @@ export default function NewResident() {
   const { handleSubmit } = methods;
 
   const fullFormSubmit = async (data) => {
+    // Companions section
     let count = 0;
     let companionsPromises = [];
     let companionsResults = [];
-    for (let k in data.companions){
-      if (data.companions.hasOwnProperty(k)){
-        console.log(k)
-        console.log(k.telefono)
-        console.log(k.fotografia)
-        console.log(k.apellidos)
-        companionsPromises.push(newCompanions(k.nombre, k.telefono, k.fotografia, k.apellidos));
+    if(data.companions != undefined) {
+      let companionsData = Object.entries(data.companions)
+      for (let k in data.companions){
+        if (data.companions.hasOwnProperty(k)){
+          companionsPromises.push(newCompanions(companionsData[count][1].nombre, companionsData[count][1].telefono, companionsData[count][1].fotografia, companionsData[count][1].apellidos));
+          count++;
+        }
       }
+      await Promise.all(companionsPromises).then(values => {
+        companionsResults = values;
+      })
     }
-    await Promise.all(companionsPromises).then(values => {
-      companionsResults = values;
-      console.log(companionsResults);
+
+    // Pets section
+    count = 0;
+    let petsPromises = [];
+    let petsResults = [];
+    if(data.pets != undefined) {
+      let petsData = Object.entries(data.pets)
+      for (let k in data.pets){
+        if (data.pets.hasOwnProperty(k)){
+          petsPromises.push(newPet(petsData[count][1].nombre, petsData[count][1].especie, petsData[count][1].edad, petsData[count][1].fotografia));
+          count++;
+        }
+      }
+      await Promise.all(petsPromises).then(values => {
+        petsResults = values;
+      })
+    }
+
+    // Personnel section
+    count = 0;
+    let personnelPromises = [];
+    let personnelResults = [];
+    if(data.personnel != undefined) {
+      let personnelData = Object.entries(data.personnel)
+      for (let k in data.personnel){
+        if (data.personnel.hasOwnProperty(k)){
+          personnelPromises.push(newPersonnel(personnelData[count][1].nombre, personnelData[count][1].telefono, personnelData[count][1].cargo, personnelData[count][1].fotografia, personnelData[count][1].diasTrabajo));
+          count++;
+        }
+      }
+      await Promise.all(personnelPromises).then(values => {
+        personnelResults = values;
+      })
+    }
+
+    await newResident(data.nombre, data.telefono, data.fotografia, data.apellidos, data.correo, petsResults, personnelResults, companionsResults).then(value => {
+      console.log(value)
     })
-    //await Promise.all([await ]);
 
     const lat = Math.random() * (21.163186 - 21.143543) + 21.143543;
     const lng = -1 * (Math.random() * (101.733571 - 101.722568) + 101.722568);

@@ -79,12 +79,12 @@ export const verifyToken = async () => {
 
 export const newPet = async (nombre, especie, edad, fotografia) => {
   try {
-    const resp = await axios.post(`${baseURl}/mascota`, {
-      nombre,
-      especie,
-      edad,
-      fotografia
-    });
+    let formData = new FormData();
+    formData.append("nombre", nombre)
+    formData.append("especie", especie)
+    formData.append("edad", edad)
+    formData.append("fotografia", fotografia)
+    const resp = await axios.post(`${baseURl}/mascota`, formData);
     return resp.data;
   } catch (err) {
     console.log(err.response);
@@ -96,13 +96,13 @@ export const newPet = async (nombre, especie, edad, fotografia) => {
 
 export const newPersonnel = async (nombre, telefono, cargo, fotografia, diasTrabajo) => {
   try {
-    const resp = await axios.post(`${baseURl}/personal-domestico`, {
-      nombre,
-      telefono,
-      cargo,
-      fotografia,
-      diasTrabajo
-    });
+    let formData = new FormData();
+    formData.append("nombre", nombre)
+    formData.append("telefono", telefono)
+    formData.append("cargo", cargo)
+    formData.append("fotografia", fotografia)
+    formData.append("diasTrabajo", diasTrabajo)
+    const resp = await axios.post(`${baseURl}/personal-domestico`, formData);
     return resp.data;
   } catch (err) {
     console.log(err.response);
@@ -113,11 +113,12 @@ export const newPersonnel = async (nombre, telefono, cargo, fotografia, diasTrab
 
 export const newCompanions = async (nombre, telefono, fotografia, apellidos) => {
   try {
-    console.log(nombre)
-    console.log(telefono)
-    console.log(fotografia)
-    console.log(apellidos)
-    const resp = await axios.post(`${baseURl}/acompanianante`, {nombre,telefono, fotografia, apellidos});
+    var formData = new FormData();
+    formData.append("nombre", nombre)
+    formData.append("telefono", telefono)
+    formData.append("fotografia", fotografia)
+    formData.append("apellidos", apellidos)
+    const resp = await axios.post(`${baseURl}/acompanianante`, formData);
     return resp.data;
   } catch (err) {
     console.log(err.response);
@@ -146,16 +147,50 @@ export const newUbicacion = async (calle, ciudad, colonia, latitud, longitud, nu
 
 export const newResident = async (nombre, telefono, fotografia, apellidos, correo, mascotas, personal, acompañantes) => {
   try {
-    const resp = await axios.post(`${baseURl}/arrendatario`, {
-      nombre,
-      apellidos,
-      fotografia,
-      telefono,
-      correo,
-      mascotas,
-      personal,
-      acompañantes
-    });
+    var formData = new FormData();
+    formData.append("nombre", nombre)
+    formData.append("telefono", telefono)
+    formData.append("fotografia", fotografia)
+    formData.append("apellidos", apellidos)
+    formData.append("correo", correo)
+    let personall = "";
+    if(personal.length !== 0 && personal.length !== -1) {
+      for (var a = 0; a <= personal.length; a++) {
+        if (a === personal.length - 1) {
+          personall = personall + personal[a]
+        }
+        else {
+          personall = personall + personal[a] + ";"
+        }
+      }
+    }
+    let mascotass = "";
+    if(mascotas.length !== 0 && mascotas.length !== -1) {
+      for (var b = 0; b <= mascotas.length; b++) {
+        if (b === mascotas.length - 1) {
+          mascotass = mascotass + acompañantes[b]
+        }
+        else {
+          mascotass = mascotass + mascotas[b] + ";"
+        }
+      } 
+    }
+    let acompañantess = "";
+    if(acompañantes.length !== 0 && acompañantes.length !== -1) {
+      for (var c = 0; c <= acompañantes.length; c++) {
+        if (c === acompañantes.length - 1) {
+          acompañantess = acompañantess + acompañantes[c]
+        }
+        else {
+          acompañantess = acompañantess + acompañantes[c] + ";"
+        }
+      }
+    }
+    formData.append("mascotas", mascotass)
+    formData.append("personal", personall)
+    formData.append("acompañantes", acompañantess)
+    formData.append("pagos", "")
+    const resp = await axios.post(`${baseURl}/arrendatario`, formData);
     return resp.data;
   } catch (err) {
     console.log(err.response);
