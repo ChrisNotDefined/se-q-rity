@@ -1,4 +1,5 @@
 import axios from "axios";
+import mapbox from "mapbox-gl"
 
 const baseURl = process.env.REACT_APP_API_URL;
 
@@ -155,7 +156,7 @@ export const newResident = async (nombre, telefono, fotografia, apellidos, corre
     formData.append("correo", correo)
     let personall = "";
     if(personal.length !== 0 && personal.length !== -1) {
-      for (var a = 0; a <= personal.length; a++) {
+      for (var a = 0; a < personal.length; a++) {
         if (a === personal.length - 1) {
           personall = personall + personal[a]
         }
@@ -163,10 +164,11 @@ export const newResident = async (nombre, telefono, fotografia, apellidos, corre
           personall = personall + personal[a] + ";"
         }
       }
+      
     }
     let mascotass = "";
     if(mascotas.length !== 0 && mascotas.length !== -1) {
-      for (var b = 0; b <= mascotas.length; b++) {
+      for (var b = 0; b < mascotas.length; b++) {
         if (b === mascotas.length - 1) {
           mascotass = mascotass + acompañantes[b]
         }
@@ -176,8 +178,8 @@ export const newResident = async (nombre, telefono, fotografia, apellidos, corre
       } 
     }
     let acompañantess = "";
-    if(acompañantes.length !== 0 && acompañantes.length !== -1) {
-      for (var c = 0; c <= acompañantes.length; c++) {
+    if(acompañantes.length !== 0 && mascotas.length !== -1) {
+      for (var c = 0; c < acompañantes.length; c++) {
         if (c === acompañantes.length - 1) {
           acompañantess = acompañantess + acompañantes[c]
         }
@@ -186,6 +188,9 @@ export const newResident = async (nombre, telefono, fotografia, apellidos, corre
         }
       }
     }
+    console.log(mascotass)
+    console.log(personall)
+    console.log(acompañantess)
     formData.append("mascotas", mascotass)
     formData.append("personal", personall)
     formData.append("acompañantes", acompañantess)
@@ -199,11 +204,11 @@ export const newResident = async (nombre, telefono, fotografia, apellidos, corre
   }
 };
 
-export const newHouse = async (arrendatario, visitantes, ubicacion) => {
+export const newHouse = async (arrendatario, ubicacion) => {
   try {
-    const resp = await axios.post(`${baseURl}/ubicacion`, {
+    const resp = await axios.post(`${baseURl}/residencia`, {
       arrendatario,
-      visitantes,
+      //visitantes,
       ubicacion
     });
     return resp.data;

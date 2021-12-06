@@ -8,8 +8,14 @@ import PersonelSection from "./Sections/Personnel.section";
 import PetsSection from "./Sections/Pets.section";
 import { newPet, newCompanions, newHouse, newPersonnel, newResident, newUbicacion } from "../../utils/api";
 import ResidentSection from "./Sections/Resident.section";
+import Geocode from "react-geocode";
 
 export default function NewResident() {
+  Geocode.setApiKey("AIzaSyDUo2H87qdPSBATKO_xdBW6LuGgU1ES3Y8");
+
+  Geocode.setLanguage("es");
+
+
   const navigate = useNavigate();
   const methods = useForm();
   const { handleSubmit } = methods;
@@ -19,7 +25,7 @@ export default function NewResident() {
     let count = 0;
     let companionsPromises = [];
     let companionsResults = [];
-    if(data.companions != undefined) {
+    if(data.companions !== undefined) {
       let companionsData = Object.entries(data.companions)
       for (let k in data.companions){
         if (data.companions.hasOwnProperty(k)){
@@ -36,7 +42,7 @@ export default function NewResident() {
     count = 0;
     let petsPromises = [];
     let petsResults = [];
-    if(data.pets != undefined) {
+    if(data.pets !== undefined) {
       let petsData = Object.entries(data.pets)
       for (let k in data.pets){
         if (data.pets.hasOwnProperty(k)){
@@ -53,7 +59,7 @@ export default function NewResident() {
     count = 0;
     let personnelPromises = [];
     let personnelResults = [];
-    if(data.personnel != undefined) {
+    if(data.personnel !== undefined) {
       let personnelData = Object.entries(data.personnel)
       for (let k in data.personnel){
         if (data.personnel.hasOwnProperty(k)){
@@ -65,14 +71,31 @@ export default function NewResident() {
         personnelResults = values;
       })
     }
-
+    let residentId = ""
     await newResident(data.nombre, data.telefono, data.fotografia, data.apellidos, data.correo, petsResults, personnelResults, companionsResults).then(value => {
-      console.log(value)
+      residentId = value
     })
 
     const lat = Math.random() * (21.163186 - 21.143543) + 21.143543;
     const lng = -1 * (Math.random() * (101.733571 - 101.722568) + 101.722568);
     console.log(lat + ", " + lng);
+    let calle = ""
+    await Geocode.fromLatLng(lat, lng).then(
+      (response) => {
+        const address = response.results[0].formatted_address;
+        calle = address;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    await newUbicacion(calle, "Leon Guanajuato", "Cañada del refugio", lat, lng, data.residencia).then(value => {
+    console.log(value)
+    })
+
+    await newHouse(residentId, lat + ", " + lng).then(value => {
+      console.log(value)
+    })
   };
 
   return (
