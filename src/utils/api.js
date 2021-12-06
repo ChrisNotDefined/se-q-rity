@@ -38,3 +38,15 @@ export const getLocations = async () => {
     return { error };
   }
 };
+
+export const searchLocation = async (keyword) => {
+  try {
+    const resp = await axios.get(`${baseURl}/ubicacion/search/${keyword}`);
+
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
+    return { error };
+  }
+};

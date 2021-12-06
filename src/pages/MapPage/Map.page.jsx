@@ -1,5 +1,5 @@
 import ReactMapGL, { Marker } from "react-map-gl";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../StyledComponents/Button";
 import {
   MapContainer,
@@ -10,11 +10,12 @@ import {
   ResidenceCard,
   SearchContainer,
 } from "./Map.styles";
-import { getLocations } from "../../utils/api";
-import { logoutAction, useAuthContext } from "../../Providers/Auth.provider";
+import { getLocations, searchLocation } from "../../utils/api";
 import { Input } from "../../StyledComponents/Input";
 import { FieldsContainer } from "../../StyledComponents/FieldsContainer";
 import { useNavigate } from "react-router";
+import { SearchList, SearchResult } from "../../Components/SearchResult";
+import Spinner from "../../Components/Spinner";
 
 const mapboxToken =
   "pk.eyJ1IjoiY2hyaXNub3RkZWZpbmVkIiwiYSI6ImNrd2U5eWE1eDAycWsydnF0ZmY1dmZ4eWQifQ.KGVi14zplvNaeVsgafp6Yw";
@@ -48,7 +49,6 @@ export default function MapPage() {
     zoom: 14,
   });
 
-  const [, dispatch] = useAuthContext();
   const navigate = useNavigate();
 
   const [selectedResidence, setSelectedResidence] = useState(null);
@@ -61,6 +61,35 @@ export default function MapPage() {
       };
 
   const [mapData, setMapData] = useState([]);
+
+  const timeoutRef = useRef();
+  const [keySearch, setKeySearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [writing, setWriting] = useState(false);
+
+  useEffect(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
+    timeoutRef.current = setTimeout(async () => {
+      const kwrd = keySearch.trim();
+      if (kwrd !== "") {
+        const data = await searchLocation(kwrd);
+        if (!data.error) {
+          setSearchResults(data);
+        }
+      }
+      setWriting(false);
+    }, 500);
+  }, [keySearch]);
+
+  const handleInputWrite = (evt) => {
+    setWriting(true);
+    setKeySearch(evt.target.value);
+    setSearchResults([]);
+  };
 
   const focusOn = (latitude, longitude) => {
     setViewport((vp) => {
@@ -76,19 +105,13 @@ export default function MapPage() {
   useEffect(() => {
     const loadLocations = async () => {
       const loc_data = await getLocations();
-      if (loc_data.error) {
-        if (loc_data.error.response.status === 401) {
-          dispatch(logoutAction());
-        }
-        return;
-      }
       console.log(loc_data);
       if (loc_data) setMapData(loc_data);
       else setMapData([]);
     };
 
     loadLocations();
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>
@@ -119,8 +142,29 @@ export default function MapPage() {
         <FieldsContainer>
           <label>
             Buscar residencia
-            <Input placeholder="Dirección" />
+            <Input placeholder="Dirección" onChange={handleInputWrite} />
           </label>
+          {(searchResults || writing) && (
+            <SearchList>
+              {writing ? (
+                <div style={{ display: "flex", justifyContent: "center", padding: "1em" }}>
+                  <Spinner height="4em" />
+                </div>
+              ) : (
+                searchResults.map((result) => {
+                  return (
+                    <SearchResult
+                      key={result._id}
+                      title={result.calle}
+                      onClick={() => {
+                        focusOn(+result.latitud, +result.longitud);
+                      }}
+                    />
+                  );
+                })
+              )}
+            </SearchList>
+          )}
         </FieldsContainer>
       </SearchContainer>
       <ButtonsContainer>

@@ -24,8 +24,9 @@ export default function MiPerfil() {
     }
 
     timeoutRef.current = setTimeout(async () => {
-      if (keySearch.trim() !== "") {
-        const data = await searchPerson(keySearch);
+      const kwrd = keySearch.trim();
+      if (kwrd !== "") {
+        const data = await searchPerson(kwrd);
         if (!data.error) {
           setSearchResults(data);
         }
