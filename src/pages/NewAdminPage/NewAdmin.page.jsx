@@ -15,13 +15,17 @@ export default function NewAdmin() {
     getValues,
     formState: { errors },
     watch,
+    reset,
   } = useForm();
 
   const [pwd, rpwd] = watch(["password", "repPass"]);
   const navigate = useNavigate();
 
   const onFormSubmit = async (data) => {
-    await registerAdmin(data.email, data.password);
+    const result = await registerAdmin(data.email, data.password);
+    if (!result.error) {
+      reset();
+    }
   };
 
   return (
