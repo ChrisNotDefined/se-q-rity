@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import SeqrityLogo from "../../Components/SeqrityLogo";
 import Spinner from "../../Components/Spinner";
 import { loginAction, useAuthContext } from "../../Providers/Auth.provider";
 import { Button } from "../../StyledComponents/Button";
@@ -31,39 +32,45 @@ export default function Login() {
   };
 
   return (
-    <FormContainer onSubmit={handleSubmit(onFormSubmit)}>
-      <div style={{ backgroundColor: "blue", height: "120px" }}></div>
-      <InputsContainer>
-        <label>
-          Email
-          <Input
-            placeholder={"Email"}
-            {...register("email", {
-              required: "Escriba su correo electrónico",
-            })}
-          />
-          {errors.name && <ErrorMsg>{errors.name?.message}</ErrorMsg>}
-        </label>
-        <label>
-          Contraseña
-          <Input
-            placeholder={"Contraseña"}
-            type="password"
-            {...register("pass", {
-              required: "Escriba su contraseña",
-            })}
-          />
-          {errors.password && <ErrorMsg>{errors.password?.message}</ErrorMsg>}
-        </label>
-      </InputsContainer>
-      <ButtonsContainer>
-        {isFetching && <Spinner />}
-        {!isFetching && (
-          <Button type="submit" disabled={isFetching}>
-            Iniciar Sesión
-          </Button>
-        )}
-      </ButtonsContainer>
-    </FormContainer>
+    <>
+      <SeqrityLogo />
+      <FormContainer onSubmit={handleSubmit(onFormSubmit)}>
+        <InputsContainer>
+          <label>
+            Email
+            <Input
+              placeholder={"Email"}
+              {...register("email", {
+                required: "Escriba su correo electrónico",
+              })}
+            />
+            {errors.name && <ErrorMsg>{errors.name?.message}</ErrorMsg>}
+          </label>
+          <label>
+            Contraseña
+            <Input
+              placeholder={"Contraseña"}
+              type="password"
+              {...register("pass", {
+                required: "Escriba su contraseña",
+              })}
+            />
+            {errors.password && <ErrorMsg>{errors.password?.message}</ErrorMsg>}
+          </label>
+        </InputsContainer>
+        <ButtonsContainer>
+          {isFetching && (
+            <div style={{ padding: "0.5em", display: "flex", justifyContent: "center" }}>
+              <Spinner height="5em" />
+            </div>
+          )}
+          {!isFetching && (
+            <Button type="submit" disabled={isFetching}>
+              Iniciar Sesión
+            </Button>
+          )}
+        </ButtonsContainer>
+      </FormContainer>
+    </>
   );
 }

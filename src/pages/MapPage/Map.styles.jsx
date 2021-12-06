@@ -74,9 +74,17 @@ export const ButtonsContainer = styled.div`
 `;
 
 export const ResidenceCard = styled.div`
-  margin-top: 2em;
+  margin: 2em;
   background-color: white;
-  box-shadow: 0 2px 5px black;
-  border-radius: 1em 1em 0 0;
-  padding: 1em;
+  box-shadow: 0 0 10px #0008;
+  border-radius: 1em;
+  padding: 2em;
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0.2em 0;
+  }
 `;

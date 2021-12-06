@@ -65,3 +65,14 @@ export const registerAdmin = async (email, pass) => {
     return { error };
   }
 };
+
+export const verifyToken = async () => {
+  try {
+    const resp = await axios.get(`${baseURl}/verifyToken`);
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
+    return { error };
+  }
+}

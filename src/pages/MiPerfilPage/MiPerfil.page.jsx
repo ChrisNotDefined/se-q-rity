@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { SearchList, SearchResult } from "../../Components/SearchResult";
+import SeqrityLogo from "../../Components/SeqrityLogo";
 import Spinner from "../../Components/Spinner";
 import { logoutAction, useAuthContext } from "../../Providers/Auth.provider";
 import { Button } from "../../StyledComponents/Button";
@@ -42,47 +43,53 @@ export default function MiPerfil() {
   };
 
   return (
-    <FormContainer>
-      <div style={{ backgroundColor: "blue", height: "120px" }}></div>
-      <ButtonsContainer>
-        <Button type="button" onClick={() => dispatch(logoutAction())}>
-          Cerrar Sesión
+    <>
+      <SeqrityLogo />
+      <FormContainer>
+        <ButtonsContainer>
+          <Button type="button" onClick={() => dispatch(logoutAction())}>
+            Cerrar Sesión
+          </Button>
+          <Button type="button" onClick={() => navigate("/map")}>
+            Mapa
+          </Button>
+        </ButtonsContainer>
+        <FieldsContainer>
+          <label>
+            Buscar Colono
+            <Input
+              onChange={handleInputWrite}
+              placeholder={"Busqueda de Colono"}
+              value={keySearch}
+            />
+          </label>
+          {(searchResults || writing) && (
+            <SearchList>
+              {writing ? (
+                <div style={{ display: "flex", justifyContent: "center", padding: "1em" }}>
+                  <Spinner height="4em" />
+                </div>
+              ) : (
+                searchResults.map((result) => {
+                  return (
+                    <SearchResult
+                      key={result._id}
+                      title={result.nombre}
+                      subtitle={result.apellidos}
+                    />
+                  );
+                })
+              )}
+            </SearchList>
+          )}
+          <Button type="button" onClick={() => navigate("/new-resident")}>
+            Nuevo Colono
+          </Button>
+        </FieldsContainer>
+        <Button type="button" onClick={() => navigate("/new-admin")}>
+          Nuevo Administrador
         </Button>
-        <Button type="button" onClick={() => navigate("/map")}>
-          Mapa
-        </Button>
-      </ButtonsContainer>
-      <FieldsContainer>
-        <label>
-          Buscar Colono
-          <Input onChange={handleInputWrite} placeholder={"Busqueda de Colono"} value={keySearch} />
-        </label>
-        {(searchResults || writing) && (
-          <SearchList>
-            {writing ? (
-              <div style={{ display: "flex", justifyContent: "center", padding: "1em" }}>
-                <Spinner height="4em" />
-              </div>
-            ) : (
-              searchResults.map((result) => {
-                return (
-                  <SearchResult
-                    key={result._id}
-                    title={result.nombre}
-                    subtitle={result.apellidos}
-                  />
-                );
-              })
-            )}
-          </SearchList>
-        )}
-        <Button type="button" onClick={() => navigate("/new-resident")}>
-          Nuevo Colono
-        </Button>
-      </FieldsContainer>
-      <Button type="button" onClick={() => navigate("/new-admin")}>
-        Nuevo Administrador
-      </Button>
-    </FormContainer>
+      </FormContainer>
+    </>
   );
 }

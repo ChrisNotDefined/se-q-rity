@@ -137,6 +137,16 @@ export default function MapPage() {
           {viewport.zoom.toFixed(3)}
         </MapOverlay>
       </MapContainer>
+      {selectedResidence && (
+        <ResidenceCard>
+          <h2>
+            {selectedResidence.calle} #{selectedResidence.numero}
+          </h2>
+          <p>
+            {selectedResidence.colonia}, {selectedResidence.ciudad}
+          </p>
+        </ResidenceCard>
+      )}
       <SearchContainer>
         <FieldsContainer>
           <label>
@@ -156,7 +166,7 @@ export default function MapPage() {
                       key={result._id}
                       title={result.calle}
                       onClick={() => {
-                        setSelectedResidence(result)
+                        setSelectedResidence(result);
                         focusOn(+result.latitud, +result.longitud);
                       }}
                     />
@@ -177,17 +187,6 @@ export default function MapPage() {
           Centrar Previo
         </Button>
       </ButtonsContainer>
-      {selectedResidence && (
-        <ResidenceCard>
-          <h2>Detalles de residencia</h2>
-          <p>
-            {selectedResidence.calle} # {selectedResidence.numero}
-          </p>
-          <p>
-            {selectedResidence.colonia}, {selectedResidence.ciudad}
-          </p>
-        </ResidenceCard>
-      )}
     </div>
   );
 }
