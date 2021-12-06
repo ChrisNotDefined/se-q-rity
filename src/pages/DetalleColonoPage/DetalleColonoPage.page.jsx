@@ -19,7 +19,6 @@ const PetCard = ({ petID }) => {
       setLoading(true);
       const p_data = await getPet(petID);
       if (!p_data.error) {
-        console.log(p_data);
         setPetData(p_data);
       }
       setLoading(false);
@@ -61,7 +60,6 @@ const CompanionCard = ({ compID }) => {
       setLoading(true);
       const p_data = await getCompanion(compID);
       if (!p_data.error) {
-        console.log(p_data);
         setCompanionData(p_data);
       }
       setLoading(false);
@@ -104,7 +102,6 @@ const WorkerCard = ({ workerID }) => {
       setLoading(true);
       const p_data = await getWorker(workerID);
       if (!p_data.error) {
-        console.log(p_data);
         setWorkerData(p_data);
       }
       setLoading(false);
@@ -148,7 +145,6 @@ export default function DetalleColono() {
     const fetchResident = async () => {
       const res_data = await getResident(idParam);
       if (!res_data.error) {
-        console.log(res_data);
         setResident(res_data);
       }
     };
