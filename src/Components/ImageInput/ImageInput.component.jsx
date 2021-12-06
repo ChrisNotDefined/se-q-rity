@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Container, HTMLInput, ImageBtn } from "./ImageInput.styles";
 
-export default function ImageInput({ onSelected }) {
+export default function ImageInput({ onSelected}) {
   const inputRef = useRef();
   const [previewUrl, setPreviewUrl] = useState(undefined);
 

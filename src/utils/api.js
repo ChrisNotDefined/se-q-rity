@@ -76,3 +76,106 @@ export const verifyToken = async () => {
     return { error };
   }
 }
+
+export const newPet = async (nombre, especie, edad, fotografia) => {
+  try {
+    const resp = await axios.post(`${baseURl}/mascota`, {
+      nombre,
+      especie,
+      edad,
+      fotografia
+    });
+    return resp.data;
+  } catch (err) {
+    console.log(err.response);
+    console.log(err.message);
+    return null;
+  }
+};
+
+
+export const newPersonnel = async (nombre, telefono, cargo, fotografia, diasTrabajo) => {
+  try {
+    const resp = await axios.post(`${baseURl}/personal-domestico`, {
+      nombre,
+      telefono,
+      cargo,
+      fotografia,
+      diasTrabajo
+    });
+    return resp.data;
+  } catch (err) {
+    console.log(err.response);
+    console.log(err.message);
+    return null;
+  }
+};
+
+export const newCompanions = async (nombre, telefono, fotografia, apellidos) => {
+  try {
+    const resp = await axios.post(`${baseURl}/personal-domestico`, {
+      nombre,
+      telefono,
+      fotografia,
+      apellidos
+    });
+    return resp.data;
+  } catch (err) {
+    console.log(err.response);
+    console.log(err.message);
+    return null;
+  }
+};
+
+export const newUbicacion = async (calle, ciudad, colonia, latitud, longitud, numero) => {
+  try {
+    const resp = await axios.post(`${baseURl}/ubicacion`, {
+      calle,
+      ciudad,
+      colonia,
+      latitud,
+      longitud,
+      numero
+    });
+    return resp.data;
+  } catch (err) {
+    console.log(err.response);
+    console.log(err.message);
+    return null;
+  }
+};
+
+export const newResident = async (nombre, telefono, fotografia, apellidos, correo, mascotas, personal, acompañantes) => {
+  try {
+    const resp = await axios.post(`${baseURl}/arrendatario`, {
+      nombre,
+      apellidos,
+      fotografia,
+      telefono,
+      correo,
+      mascotas,
+      personal,
+      acompañantes
+    });
+    return resp.data;
+  } catch (err) {
+    console.log(err.response);
+    console.log(err.message);
+    return null;
+  }
+};
+
+export const newHouse = async (arrendatario, visitantes, ubicacion) => {
+  try {
+    const resp = await axios.post(`${baseURl}/ubicacion`, {
+      arrendatario,
+      visitantes,
+      ubicacion
+    });
+    return resp.data;
+  } catch (err) {
+    console.log(err.response);
+    console.log(err.message);
+    return null;
+  }
+};

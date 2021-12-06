@@ -33,7 +33,11 @@ function PersonnelForm({ onRemove, idx }) {
   return (
     <FormSection>
       <FormImgContainer>
-        <ImageInput />
+        <ImageInput onSelected={(file) => {
+          register(`personnel.${idx}.fotografia`, {
+            value: file
+          })
+        }}/>
         <RemoveButton type="button" onClick={handleRemove}>
           <i className="fas fa-trash"></i>
         </RemoveButton>
@@ -42,7 +46,7 @@ function PersonnelForm({ onRemove, idx }) {
         <label>
           Nombre
           <Input
-            {...register(`personnel.${idx}.name`, {
+            {...register(`personnel.${idx}.nombre`, {
               required: "Nombre requerido",
             })}
           />
@@ -51,7 +55,7 @@ function PersonnelForm({ onRemove, idx }) {
         <label>
           Teléfono
           <Input
-            {...register(`personnel.${idx}.phone`, {
+            {...register(`personnel.${idx}.telefono`, {
               required: "Teléfono requerido",
               pattern: {
                 value: TELEPHONE_REGEX,
@@ -64,7 +68,7 @@ function PersonnelForm({ onRemove, idx }) {
         <label>
           Servicio
           <Input
-            {...register(`personnel.${idx}.service`, {
+            {...register(`personnel.${idx}.cargo`, {
               required: "Especifique el servicio",
             })}
           />
@@ -74,7 +78,7 @@ function PersonnelForm({ onRemove, idx }) {
           Horario de trabajo
           <Input
             placeholder="Lun a Vie de 10am a 6pm"
-            {...register(`personnel.${idx}.schedule`, {
+            {...register(`personnel.${idx}.diasTrabajo`, {
               required: "Especifique el horario de trabajo",
             })}
           />
