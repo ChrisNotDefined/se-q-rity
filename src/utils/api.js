@@ -50,3 +50,18 @@ export const searchLocation = async (keyword) => {
     return { error };
   }
 };
+
+export const registerAdmin = async (email, pass) => {
+  try {
+    const resp = await axios.post(`${baseURl}/register`, {
+      email,
+      pass,
+    });
+
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
+    return { error };
+  }
+};

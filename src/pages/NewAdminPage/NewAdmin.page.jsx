@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { Button } from "../../StyledComponents/Button";
 import { ErrorMsg, FieldsContainer } from "../../StyledComponents/FieldsContainer";
 import { Input } from "../../StyledComponents/Input";
+import { registerAdmin } from "../../utils/api";
 import { EMAIL_VALIDATION_REGEX, PASSWORD_STRENGTH_REGEX } from "../../utils/validations";
 import { ButtonsContainer, FormContainer } from "./NewAdmin.styles";
 
@@ -16,9 +18,10 @@ export default function NewAdmin() {
   } = useForm();
 
   const [pwd, rpwd] = watch(["password", "repPass"]);
+  const navigate = useNavigate();
 
-  const onFormSubmit = (data) => {
-    console.log(data);
+  const onFormSubmit = async (data) => {
+    await registerAdmin(data.email, data.password);
   };
 
   return (
@@ -68,7 +71,9 @@ export default function NewAdmin() {
       </FieldsContainer>
       <ButtonsContainer>
         <Button type="submit">Registrar Administrador</Button>
-        <Button type="button">Volver</Button>
+        <Button type="button" onClick={() => navigate("/")}>
+          Volver
+        </Button>
       </ButtonsContainer>
     </FormContainer>
   );
