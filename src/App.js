@@ -6,6 +6,7 @@ import MapPage from "./pages/MapPage";
 import NewAdminPage from "./pages/NewAdminPage";
 import NewResident from "./pages/NewResidentPage";
 import AuthProvider from "./Providers/Auth.provider";
+import DetalleColonoPage from "./pages/DetalleColonoPage";
 
 function mustLogIn(Component) {
   return (
@@ -27,17 +28,11 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        {/* <nav>
-          <Link to="/">Home</Link>
-          <Link to="/new-resident">New Resident</Link>
-          <Link to="/new-admin">New Admin</Link>
-          <Link to="/map">Map Placeholder</Link>
-          <Link to="/login">Login</Link>
-        </nav> */}
         <Routes>
           <Route path="/" element={mustLogIn(MiPerfilPage)} />
           <Route path="new-admin" element={mustLogIn(NewAdminPage)} />
           <Route path="new-resident" element={mustLogIn(NewResident)} />
+          <Route path="resident/:id" element={mustLogIn(DetalleColonoPage)} />
           <Route path="map" element={mustLogIn(MapPage)} />
           <Route path="login" element={mustBeAnon(LoginPage)} />
           <Route path="*" element={<Navigate replace to="/" />} />
