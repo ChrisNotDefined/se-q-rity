@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import CheckAuth from "./Components/CheckAuth/CheckAuth.component";
 import LoginPage from "./pages/LoginPage";
 import MiPerfilPage from "./pages/MiPerfilPage";
@@ -27,13 +27,13 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <nav>
+        {/* <nav>
           <Link to="/">Home</Link>
           <Link to="/new-resident">New Resident</Link>
           <Link to="/new-admin">New Admin</Link>
           <Link to="/map">Map Placeholder</Link>
           <Link to="/login">Login</Link>
-        </nav>
+        </nav> */}
         <Routes>
           <Route path="/" element={mustLogIn(MiPerfilPage)} />
           <Route path="new-admin" element={mustLogIn(NewAdminPage)} />

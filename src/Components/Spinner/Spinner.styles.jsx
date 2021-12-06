@@ -11,6 +11,6 @@ const SpinKf = keyframes`
 `;
 
 export const SpinImg = styled.img`
-  height: 5em;
+  height: ${props => props.style_height || '5em'};
   animation: ${SpinKf} .8s infinite;
 `;
