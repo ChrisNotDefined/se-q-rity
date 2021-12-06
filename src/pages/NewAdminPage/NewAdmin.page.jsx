@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { useState } from "react/cjs/react.development";
 import SeqrityLogo from "../../Components/SeqrityLogo";
 import Spinner from "../../Components/Spinner";
 import { Button } from "../../StyledComponents/Button";

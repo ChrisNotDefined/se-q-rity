@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useContext, useReducer, useRef } from "react";
-import { useEffect } from "react/cjs/react.development";
+import React, { useContext, useReducer, useRef, useEffect } from "react";
 import { verifyToken } from "../utils/api";
 
 const AuthContext = React.createContext();
