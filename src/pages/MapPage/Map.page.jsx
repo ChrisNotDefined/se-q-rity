@@ -105,7 +105,6 @@ export default function MapPage() {
   useEffect(() => {
     const loadLocations = async () => {
       const loc_data = await getLocations();
-      console.log(loc_data);
       if (loc_data) setMapData(loc_data);
       else setMapData([]);
     };
@@ -157,6 +156,7 @@ export default function MapPage() {
                       key={result._id}
                       title={result.calle}
                       onClick={() => {
+                        setSelectedResidence(result)
                         focusOn(+result.latitud, +result.longitud);
                       }}
                     />
