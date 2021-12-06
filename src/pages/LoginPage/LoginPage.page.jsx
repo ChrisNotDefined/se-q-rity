@@ -57,7 +57,11 @@ export default function Login() {
         </label>
       </InputsContainer>
       <ButtonsContainer>
-        {isFetching && <Spinner />}
+        {isFetching && (
+          <div style={{padding: "0.5em", display: "flex", justifyContent: "center"}}>
+            <Spinner height="5em" />
+          </div>
+        )}
         {!isFetching && (
           <Button type="submit" disabled={isFetching}>
             Iniciar Sesión
