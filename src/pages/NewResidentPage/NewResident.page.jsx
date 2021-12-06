@@ -11,7 +11,8 @@ import ResidentSection from "./Sections/Resident.section";
 import Geocode from "react-geocode";
 
 export default function NewResident() {
-  Geocode.setApiKey(process.env.REACT_APP_API_URL);
+  const GEOCODER_API_KEY = process.env.REACT_APP_GEOCODE_KEY;
+  Geocode.setApiKey(`${GEOCODER_API_KEY}`);
 
   Geocode.setLanguage("es");
 
@@ -74,6 +75,7 @@ export default function NewResident() {
     let residentId = ""
     await newResident(data.nombre, data.telefono, data.fotografia, data.apellidos, data.correo, petsResults, personnelResults, companionsResults).then(value => {
       residentId = value
+      console.log(value)
     })
 
     const lat = Math.random() * (21.163186 - 21.143543) + 21.143543;

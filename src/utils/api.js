@@ -187,9 +187,6 @@ export const newResident = async (nombre, telefono, fotografia, apellidos, corre
         }
       }
     }
-    console.log(mascotass)
-    console.log(personall)
-    console.log(acompañantess)
     formData.append("mascotas", mascotass)
     formData.append("personal", personall)
     formData.append("acompañantes", acompañantess)
