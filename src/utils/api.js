@@ -1,5 +1,4 @@
 import axios from "axios";
-import mapbox from "mapbox-gl"
 
 const baseURl = process.env.REACT_APP_API_URL;
 

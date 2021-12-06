@@ -1,6 +1,6 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Button } from "../../StyledComponents/Button";
 import { FormsContainer, ImageCenterer, WideButtonContainer } from "./NewResident.styles";
 import CompanionsSection from "./Sections/Companions.section";
@@ -11,7 +11,7 @@ import ResidentSection from "./Sections/Resident.section";
 import Geocode from "react-geocode";
 
 export default function NewResident() {
-  Geocode.setApiKey("AIzaSyDUo2H87qdPSBATKO_xdBW6LuGgU1ES3Y8");
+  Geocode.setApiKey(process.env.REACT_APP_API_URL);
 
   Geocode.setLanguage("es");
 
