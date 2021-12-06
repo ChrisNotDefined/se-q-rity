@@ -24,6 +24,7 @@ export const searchPerson = async (keyword) => {
   } catch (error) {
     console.error(error.response);
     console.error(error.message);
+    return { error };
   }
 };
 
@@ -34,5 +35,6 @@ export const getLocations = async () => {
   } catch (error) {
     console.error(error.response);
     console.error(error.message);
+    return { error };
   }
 };

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const MapContainer = styled.div`
-  height: 80vmin;
+  height: 76vmin;
   background-color: #00f0ff;
   border-radius: 0.5em;
   margin: 2em;
@@ -14,6 +14,10 @@ export const MapContainer = styled.div`
   }
 `;
 
+export const SearchContainer = styled.div`
+  margin: 0 2em;
+`;
+
 export const MapOverlay = styled.div`
   position: absolute;
   top: 2em;
@@ -23,14 +27,39 @@ export const MapOverlay = styled.div`
   border-radius: 0.2em;
 `;
 
+export const MarkerPoint = styled.div`
+  background-color: #0026ff;
+  box-shadow: 0 3px 5px black;
+  transform: translate(-50%, -50%);
+  border-radius: 90em;
+  width: 1em;
+  height: 1em;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+
+  > * {
+    display: none;
+    transform: translate(-50%, -100%);
+    position: absolute;
+  }
+
+  :hover > * {
+    display: flex;
+    z-index: 100;
+  }
+`;
+
 export const StyledMarker = styled.div`
-  transform: translate(-50%, -100%);
-  background-color: #0045ee85;
+  background-color: #fff;
+  min-width: 20em;
+  justify-content: center;
   padding: 0.5em;
   border-radius: 0.2em;
   padding-bottom: 1em;
   width: fit-content;
-  color: white;
+  color: black;
+  text-align: center;
 `;
 
 export const ButtonsContainer = styled.div`
@@ -42,4 +71,12 @@ export const ButtonsContainer = styled.div`
   > * {
     flex-basis: 40em;
   }
+`;
+
+export const ResidenceCard = styled.div`
+  margin-top: 2em;
+  background-color: white;
+  box-shadow: 0 2px 5px black;
+  border-radius: 1em 1em 0 0;
+  padding: 1em;
 `;
