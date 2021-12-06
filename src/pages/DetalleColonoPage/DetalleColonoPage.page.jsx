@@ -79,18 +79,20 @@ const CompanionCard = ({ compID }) => {
   if (!companionData) return null;
 
   return (
-    <VerticalContainer>
-      <CircleImage src={companionData.fotografia || "https://via.placeholder.com/150"} />
-      <DataTag>
-        <span>Nombre:</span> {companionData.nombre}
-      </DataTag>
-      <DataTag>
-        <span>Apellidos:</span> {companionData.apellidos}
-      </DataTag>
-      <DataTag>
-        <span>Teléfono:</span> {companionData.telefono}
-      </DataTag>
-    </VerticalContainer>
+    <TranslucidCard>
+      <VerticalContainer>
+        <CircleImage src={companionData.fotografia || "https://via.placeholder.com/150"} />
+        <DataTag>
+          <span>Nombre:</span> {companionData.nombre}
+        </DataTag>
+        <DataTag>
+          <span>Apellidos:</span> {companionData.apellidos}
+        </DataTag>
+        <DataTag>
+          <span>Teléfono:</span> {companionData.telefono}
+        </DataTag>
+      </VerticalContainer>
+    </TranslucidCard>
   );
 };
 const WorkerCard = ({ workerID }) => {
@@ -120,19 +122,21 @@ const WorkerCard = ({ workerID }) => {
   if (!workerData) return null;
 
   return (
-    <VerticalContainer>
-      <h3>{workerData.cargo}</h3>
-      <CircleImage src={workerData.fotografia || "https://via.placeholder.com/150"} />
-      <DataTag>
-        <span>Nombre:</span> {workerData.nombre}
-      </DataTag>
-      <DataTag>
-        <span>Teléfono:</span> {workerData.telefono}
-      </DataTag>
-      <DataTag>
-        <span>Jornada:</span> {workerData.diasTrabajo}
-      </DataTag>
-    </VerticalContainer>
+    <TranslucidCard>
+      <VerticalContainer>
+        <h3>{workerData.cargo}</h3>
+        <CircleImage src={workerData.fotografia || "https://via.placeholder.com/150"} />
+        <DataTag>
+          <span>Nombre:</span> {workerData.nombre}
+        </DataTag>
+        <DataTag>
+          <span>Teléfono:</span> {workerData.telefono}
+        </DataTag>
+        <DataTag>
+          <span>Jornada:</span> {workerData.diasTrabajo}
+        </DataTag>
+      </VerticalContainer>
+    </TranslucidCard>
   );
 };
 

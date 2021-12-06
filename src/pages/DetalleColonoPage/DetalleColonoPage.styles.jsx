@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-  padding: 0 clamp(0em, 10vw, 10em);
+  padding: 0 clamp(0em, 10vw, 10em) 3em;
 
   h2 {
     text-align: center;
