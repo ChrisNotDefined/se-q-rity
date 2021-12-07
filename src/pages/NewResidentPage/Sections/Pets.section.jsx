@@ -50,7 +50,7 @@ function PetForm({ onRemove, idx }) {
               required: "Nombre requerido",
             })}
           />
-          {formErrors?.name && <ErrorMsg>{formErrors.name?.message}</ErrorMsg>}
+          {formErrors?.nombre && <ErrorMsg>{formErrors.nombre?.message}</ErrorMsg>}
         </label>
         <label>
           Especie y Raza
@@ -60,7 +60,7 @@ function PetForm({ onRemove, idx }) {
               required: "Especie requerida",
             })}
           />
-          {formErrors?.species && <ErrorMsg>{formErrors.species?.message}</ErrorMsg>}
+          {formErrors?.especie && <ErrorMsg>{formErrors.especie?.message}</ErrorMsg>}
         </label>
         <label>
           Edad
@@ -73,7 +73,7 @@ function PetForm({ onRemove, idx }) {
               },
             })}
           />
-          {formErrors?.age && <ErrorMsg>{formErrors.age?.message}</ErrorMsg>}
+          {formErrors?.edad && <ErrorMsg>{formErrors.edad?.message}</ErrorMsg>}
         </label>
       </FieldsContainer>
     </FormSection>

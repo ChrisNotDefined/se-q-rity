@@ -12,17 +12,16 @@ export const FormContainer = styled.form`
   margin: 2em auto;
 
   & > ${FieldsContainer} {
-    margin: auto 0;
+    margin: 0 0 auto;
   }
 `;
 
 export const ButtonsContainer = styled.div`
-  margin-top: auto;
-  margin-bottom: 5em;
+  margin: auto 0;
   justify-self: flex-end;
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 2em;
 
   button {
     width: 80%;

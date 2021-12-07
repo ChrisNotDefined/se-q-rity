@@ -1,7 +1,10 @@
 import React, { useRef, useState } from "react";
 import { Container, HTMLInput, ImageBtn } from "./ImageInput.styles";
 
-export default function ImageInput({ onSelected}) {
+const PLACEHOLDER_IMG =
+  "https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png";
+
+export default function ImageInput({ onSelected }) {
   const inputRef = useRef();
   const [previewUrl, setPreviewUrl] = useState(undefined);
 
@@ -22,7 +25,7 @@ export default function ImageInput({ onSelected}) {
     <Container onClick={() => inputRef.current.click()}>
       <ImageBtn
         type="image"
-        src={previewUrl || "https://via.placeholder.com/150"}
+        src={previewUrl || PLACEHOLDER_IMG}
         alt="Selected File"
       />
       <HTMLInput ref={inputRef} type="file" accept="image/*" onChange={handleInputChange} />

@@ -46,14 +46,6 @@ export default function MiPerfil() {
     <>
       <SeqrityLogo />
       <FormContainer>
-        <ButtonsContainer>
-          <Button type="button" onClick={() => dispatch(logoutAction())}>
-            Cerrar Sesión
-          </Button>
-          <Button type="button" onClick={() => navigate("/map")}>
-            Mapa
-          </Button>
-        </ButtonsContainer>
         <FieldsContainer>
           <label>
             Buscar Colono
@@ -87,6 +79,15 @@ export default function MiPerfil() {
             Nuevo Colono
           </Button>
         </FieldsContainer>
+        <ButtonsContainer>
+          <Button type="button" onClick={() => navigate("/map")}>
+            Mapa
+          </Button>
+          <Button type="button" onClick={() => dispatch(logoutAction())}>
+            Cerrar Sesión
+          </Button>
+        </ButtonsContainer>
+
         <Button type="button" onClick={() => navigate("/new-admin")}>
           Nuevo Administrador
         </Button>

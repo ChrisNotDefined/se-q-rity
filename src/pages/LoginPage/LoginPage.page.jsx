@@ -6,6 +6,7 @@ import { loginAction, useAuthContext } from "../../Providers/Auth.provider";
 import { Button } from "../../StyledComponents/Button";
 import { Input } from "../../StyledComponents/Input";
 import { login } from "../../utils/api";
+import { EMAIL_VALIDATION_REGEX } from "../../utils/validations";
 import { ButtonsContainer, ErrorMsg, FormContainer, InputsContainer } from "./LoginPage.styles";
 
 export default function Login() {
@@ -13,6 +14,7 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
 
   const [, dispatch] = useAuthContext();
@@ -22,6 +24,15 @@ export default function Login() {
     try {
       setIsFetching(true);
       const res = await login(data.email, data.pass);
+      if (res.error) {
+        const dataError = res.error.response?.data?.error;
+        if (dataError) {
+          setError("pass", {
+            type: "authFailed",
+            message: "Correo o contraseña incorrectos",
+          });
+        }
+      }
       const loginToken = res?.data.token;
       setIsFetching(false);
       dispatch(loginAction(loginToken));
@@ -42,9 +53,13 @@ export default function Login() {
               placeholder={"Email"}
               {...register("email", {
                 required: "Escriba su correo electrónico",
+                pattern: {
+                  value: EMAIL_VALIDATION_REGEX,
+                  message: "Verifica que sea un correo válido",
+                },
               })}
             />
-            {errors.name && <ErrorMsg>{errors.name?.message}</ErrorMsg>}
+            {errors.email && <ErrorMsg>{errors.email?.message}</ErrorMsg>}
           </label>
           <label>
             Contraseña
@@ -55,7 +70,7 @@ export default function Login() {
                 required: "Escriba su contraseña",
               })}
             />
-            {errors.password && <ErrorMsg>{errors.password?.message}</ErrorMsg>}
+            {errors.pass && <ErrorMsg>{errors.pass?.message}</ErrorMsg>}
           </label>
         </InputsContainer>
         <ButtonsContainer>
