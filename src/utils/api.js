@@ -166,10 +166,11 @@ export const newResident = async (nombre, telefono, fotografia, apellidos, corre
       
     }
     let mascotass = "";
+    console.log(mascotas)
     if(mascotas.length !== 0 && mascotas.length !== -1) {
       for (var b = 0; b < mascotas.length; b++) {
         if (b === mascotas.length - 1) {
-          mascotass = mascotass + acompañantes[b]
+          mascotass = mascotass + mascotas[b]
         }
         else {
           mascotass = mascotass + mascotas[b] + ";"

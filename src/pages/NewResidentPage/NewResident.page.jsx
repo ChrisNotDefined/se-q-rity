@@ -53,6 +53,7 @@ export default function NewResident() {
       }
       await Promise.all(petsPromises).then(values => {
         petsResults = values;
+        console.log(petsResults)
       })
     }
 
@@ -75,7 +76,6 @@ export default function NewResident() {
     let residentId = ""
     await newResident(data.nombre, data.telefono, data.fotografia, data.apellidos, data.correo, petsResults, personnelResults, companionsResults).then(value => {
       residentId = value
-      console.log(value)
     })
 
     const lat = Math.random() * (21.163186 - 21.143543) + 21.143543;
