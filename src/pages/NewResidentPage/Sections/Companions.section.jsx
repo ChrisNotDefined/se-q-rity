@@ -47,19 +47,19 @@ function CompanionForm({ onRemove, idx }) {
           Nombre
           <Input
             {...register(`companions.${idx}.nombre`, {
-              required: "Nombre requerido",
+              required: "Escriba el nombre del acompañante",
             })}
           />
-          {formErrors?.name && <ErrorMsg>{formErrors.name?.message}</ErrorMsg>}
+          {formErrors?.nombre && <ErrorMsg>{formErrors.nombre?.message}</ErrorMsg>}
         </label>
         <label>
           Apellidos
           <Input
             {...register(`companions.${idx}.apellidos`, {
-              required: "Apellido requerido",
+              required: "Escriba los apellidos del acompañante",
             })}
           />
-          {formErrors?.lastName && <ErrorMsg>{formErrors.lastName?.message}</ErrorMsg>}
+          {formErrors?.apellidos && <ErrorMsg>{formErrors.apellidos?.message}</ErrorMsg>}
         </label>
         <label>
           Teléfono
@@ -68,11 +68,11 @@ function CompanionForm({ onRemove, idx }) {
               required: "Teléfono requerido",
               pattern: {
                 value: TELEPHONE_REGEX,
-                message: "Teléfono inválido",
+                message: "No es un teléfono válido",
               },
             })}
           />
-          {formErrors?.number && <ErrorMsg>{formErrors.number?.message}</ErrorMsg>}
+          {formErrors?.telefono && <ErrorMsg>{formErrors.telefono?.message}</ErrorMsg>}
         </label>
       </FieldsContainer>
     </FormSection>

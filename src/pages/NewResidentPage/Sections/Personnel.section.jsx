@@ -50,7 +50,7 @@ function PersonnelForm({ onRemove, idx }) {
               required: "Nombre requerido",
             })}
           />
-          {formErrors?.name && <ErrorMsg>{formErrors.name?.message}</ErrorMsg>}
+          {formErrors?.nombre && <ErrorMsg>{formErrors.nombre?.message}</ErrorMsg>}
         </label>
         <label>
           Teléfono
@@ -63,7 +63,7 @@ function PersonnelForm({ onRemove, idx }) {
               },
             })}
           />
-          {formErrors?.phone && <ErrorMsg>{formErrors.phone?.message}</ErrorMsg>}
+          {formErrors?.telefono && <ErrorMsg>{formErrors.telefono?.message}</ErrorMsg>}
         </label>
         <label>
           Servicio
@@ -72,7 +72,7 @@ function PersonnelForm({ onRemove, idx }) {
               required: "Especifique el servicio",
             })}
           />
-          {formErrors?.service && <ErrorMsg>{formErrors.service?.message}</ErrorMsg>}
+          {formErrors?.cargo && <ErrorMsg>{formErrors.cargo?.message}</ErrorMsg>}
         </label>
         <label>
           Horario de trabajo
@@ -82,7 +82,7 @@ function PersonnelForm({ onRemove, idx }) {
               required: "Especifique el horario de trabajo",
             })}
           />
-          {formErrors?.schedule && <ErrorMsg>{formErrors.schedule?.message}</ErrorMsg>}
+          {formErrors?.diasTrabajo && <ErrorMsg>{formErrors.diasTrabajo?.message}</ErrorMsg>}
         </label>
       </FieldsContainer>
     </FormSection>

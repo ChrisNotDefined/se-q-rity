@@ -35,7 +35,7 @@ export default function ResidentSection() {
                 required: "Escriba el nombre del residente",
               })}
             />
-            {errors.residentName && <ErrorMsg>{errors.residentName?.message}</ErrorMsg>}
+            {errors.nombre && <ErrorMsg>{errors.nombre?.message}</ErrorMsg>}
           </label>
           <label>
             Apellidos
@@ -44,7 +44,7 @@ export default function ResidentSection() {
                 required: "Escriba los apellidos del residente",
               })}
             />
-            {errors.residentLastName && <ErrorMsg>{errors.residentLastName?.message}</ErrorMsg>}
+            {errors.apellidos && <ErrorMsg>{errors.apellidos?.message}</ErrorMsg>}
           </label>
           <label>
             Número Residencia
@@ -57,7 +57,7 @@ export default function ResidentSection() {
                 },
               })}
             />
-            {errors.residenceNumber && <ErrorMsg>{errors.residenceNumber?.message}</ErrorMsg>}
+            {errors.residencia && <ErrorMsg>{errors.residencia?.message}</ErrorMsg>}
           </label>
           <label>
             Número telefónico
@@ -70,7 +70,7 @@ export default function ResidentSection() {
                 },
               })}
             />
-            {errors.residentTel && <ErrorMsg>{errors.residentTel?.message}</ErrorMsg>}
+            {errors.telefono && <ErrorMsg>{errors.telefono?.message}</ErrorMsg>}
           </label>
           <label>
             Correo electrónico
@@ -84,7 +84,7 @@ export default function ResidentSection() {
                 },
               })}
             />
-            {errors.residentEmail && <ErrorMsg>{errors.residentEmail?.message}</ErrorMsg>}
+            {errors.correo && <ErrorMsg>{errors.correo?.message}</ErrorMsg>}
           </label>
         </FieldsContainer>
       </div>

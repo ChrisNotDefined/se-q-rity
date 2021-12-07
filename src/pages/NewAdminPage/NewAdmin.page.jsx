@@ -14,13 +14,12 @@ export default function NewAdmin() {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
     watch,
     reset,
   } = useForm();
 
-  const [pwd, rpwd] = watch(["password", "repPass"]);
+  const [pwd] = watch(["password", "repPass"]);
   const [fetching, setFetching] = useState(false);
   const navigate = useNavigate();
 
@@ -72,11 +71,11 @@ export default function NewAdmin() {
               type="password"
               {...register("repPass", {
                 required: "La contraseña es requerida",
-                validate: (value) =>
-                  value === getValues("password") || "Las contraseñas no coinciden",
+                deps: ["password"],
+                validate: (value) => value === pwd || "Las contraseñas no coinciden",
               })}
             />
-            {errors.repPass && pwd !== rpwd && <ErrorMsg>las contraseñas no coinciden</ErrorMsg>}
+            {errors.repPass && <ErrorMsg>{errors.repPass?.message}</ErrorMsg>}
           </label>
         </FieldsContainer>
         <ButtonsContainer>

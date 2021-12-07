@@ -6,6 +6,7 @@ import { loginAction, useAuthContext } from "../../Providers/Auth.provider";
 import { Button } from "../../StyledComponents/Button";
 import { Input } from "../../StyledComponents/Input";
 import { login } from "../../utils/api";
+import { EMAIL_VALIDATION_REGEX } from "../../utils/validations";
 import { ButtonsContainer, ErrorMsg, FormContainer, InputsContainer } from "./LoginPage.styles";
 
 export default function Login() {
@@ -42,9 +43,13 @@ export default function Login() {
               placeholder={"Email"}
               {...register("email", {
                 required: "Escriba su correo electrónico",
+                pattern: {
+                  value: EMAIL_VALIDATION_REGEX,
+                  message: "Verifica que sea un correo válido",
+                },
               })}
             />
-            {errors.name && <ErrorMsg>{errors.name?.message}</ErrorMsg>}
+            {errors.email && <ErrorMsg>{errors.email?.message}</ErrorMsg>}
           </label>
           <label>
             Contraseña
@@ -55,7 +60,7 @@ export default function Login() {
                 required: "Escriba su contraseña",
               })}
             />
-            {errors.password && <ErrorMsg>{errors.password?.message}</ErrorMsg>}
+            {errors.pass && <ErrorMsg>{errors.pass?.message}</ErrorMsg>}
           </label>
         </InputsContainer>
         <ButtonsContainer>
