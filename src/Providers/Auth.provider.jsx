@@ -59,7 +59,7 @@ export default function AuthProvider({ children }) {
     if (authData.token !== null)
       intervalRef.current = setInterval(() => {
         validate(authData.token);
-      }, 10000);
+      }, 100000);
 
     return () => {
       clearInterval(intervalRef.current);
