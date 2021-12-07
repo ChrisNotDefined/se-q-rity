@@ -11,7 +11,8 @@ import ResidentSection from "./Sections/Resident.section";
 import Geocode from "react-geocode";
 
 export default function NewResident() {
-  Geocode.setApiKey(process.env.REACT_APP_API_URL);
+  const GEOCODER_API_KEY = process.env.REACT_APP_GEOCODE_KEY;
+  Geocode.setApiKey(`${GEOCODER_API_KEY}`);
 
   Geocode.setLanguage("es");
 
@@ -52,6 +53,7 @@ export default function NewResident() {
       }
       await Promise.all(petsPromises).then(values => {
         petsResults = values;
+        console.log(petsResults)
       })
     }
 
