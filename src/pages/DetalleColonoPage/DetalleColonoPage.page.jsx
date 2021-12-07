@@ -12,6 +12,10 @@ import { getCompanion, getPet, getResident, getWorker } from "../../utils/api";
 import { useNavigate, useParams } from "react-router";
 import { Button } from "../../StyledComponents/Button";
 
+const PLACEHOLDER_IMG =
+  "https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png";
+
+
 const PetCard = ({ petID }) => {
   const [petData, setPetData] = useState();
   const [loading, setLoading] = useState(false);
@@ -41,7 +45,7 @@ const PetCard = ({ petID }) => {
     <TranslucidCard>
       <VerticalContainer>
         <h3>{petData.especie}</h3>
-        <CircleImage src={petData.fotografia || "https://via.placeholder.com/150"} />
+        <CircleImage src={petData.fotografia || PLACEHOLDER_IMG} />
         <DataTag>
           <span>Nombre:</span> {petData.nombre}
         </DataTag>
@@ -81,7 +85,7 @@ const CompanionCard = ({ compID }) => {
   return (
     <TranslucidCard>
       <VerticalContainer>
-        <CircleImage src={companionData.fotografia || "https://via.placeholder.com/150"} />
+        <CircleImage src={companionData.fotografia || PLACEHOLDER_IMG} />
         <DataTag>
           <span>Nombre:</span> {companionData.nombre}
         </DataTag>
@@ -124,7 +128,7 @@ const WorkerCard = ({ workerID }) => {
     <TranslucidCard>
       <VerticalContainer>
         <h3>{workerData.cargo}</h3>
-        <CircleImage src={workerData.fotografia || "https://via.placeholder.com/150"} />
+        <CircleImage src={workerData.fotografia || PLACEHOLDER_IMG} />
         <DataTag>
           <span>Nombre:</span> {workerData.nombre}
         </DataTag>
@@ -163,7 +167,7 @@ export default function DetalleColono() {
     <MainContainer>
       <VerticalContainer>
         <h1>Residente</h1>
-        <CircleImage src={resident.fotografia || "https://via.placeholder.com/150"} />
+        <CircleImage src={resident.fotografia || PLACEHOLDER_IMG} />
         <DataTag>
           <span>Nombre:</span> {resident.nombre}
         </DataTag>
