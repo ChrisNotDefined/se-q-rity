@@ -59,7 +59,7 @@ export default function MiPerfil() {
             Buscar Colono
             <Input
               onChange={handleInputWrite}
-              placeholder={"Busqueda de Colono"}
+              placeholder={"Búsqueda de Colono"}
               value={keySearch}
             />
           </label>
@@ -76,6 +76,7 @@ export default function MiPerfil() {
                       key={result._id}
                       title={result.nombre}
                       subtitle={result.apellidos}
+                      onClick={() => navigate(`/resident/${result._id}`)}
                     />
                   );
                 })

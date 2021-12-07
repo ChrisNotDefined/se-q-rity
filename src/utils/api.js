@@ -75,6 +75,50 @@ export const verifyToken = async () => {
     console.error(error.message);
     return { error };
   }
+};
+
+export const getResident = async (id) => {
+  try {
+    const resp = await axios.get(`${baseURl}/arrendatario/${id}`);
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
+    return { error };
+  }
+};
+
+export const getCompanion = async (id) => {
+  try {
+    const resp = await axios.get(`${baseURl}/acompanianante/${id}`);
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
+    return { error };
+  }
+}
+
+export const getWorker = async (id) => {
+  try {
+    const resp = await axios.get(`${baseURl}/personal-domestico/${id}`);
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
+    return { error };
+  }
+}
+
+export const getPet = async (id) => {
+  try {
+    const resp = await axios.get(`${baseURl}/mascota/${id}`);
+    return resp.data;
+  } catch (error) {
+    console.error(error.response);
+    console.error(error.message);
+    return { error };
+  }
 }
 
 export const newPet = async (nombre, especie, edad, fotografia) => {

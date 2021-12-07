@@ -9,10 +9,12 @@ export const ListContainer = styled.div`
 
 export const ListItem = styled.div`
   padding: 0.3em;
+  padding-left: 2em;
   transition: background-color 200ms;
+  cursor: pointer;
 
   &:not(:last-child) {
-    border-bottom: solid 2px gray;
+    border-bottom: solid 1px #ddd;
   }
 
   &:hover {
