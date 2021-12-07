@@ -14,6 +14,7 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
 
   const [, dispatch] = useAuthContext();
@@ -23,6 +24,15 @@ export default function Login() {
     try {
       setIsFetching(true);
       const res = await login(data.email, data.pass);
+      if (res.error) {
+        const dataError = res.error.response?.data?.error;
+        if (dataError) {
+          setError("pass", {
+            type: "authFailed",
+            message: "Correo o contraseña incorrectos",
+          });
+        }
+      }
       const loginToken = res?.data.token;
       setIsFetching(false);
       dispatch(loginAction(loginToken));

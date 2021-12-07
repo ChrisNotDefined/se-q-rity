@@ -1,6 +1,6 @@
 import ReactMapGL, { Marker } from "react-map-gl";
 import React, { useEffect, useRef, useState } from "react";
-import { Button } from "../../StyledComponents/Button";
+import { useNavigate } from "react-router";
 import {
   MapContainer,
   MapOverlay,
@@ -13,7 +13,7 @@ import {
 import { getLocations, searchLocation } from "../../utils/api";
 import { Input } from "../../StyledComponents/Input";
 import { FieldsContainer } from "../../StyledComponents/FieldsContainer";
-import { useNavigate } from "react-router";
+import { Button } from "../../StyledComponents/Button";
 import { SearchList, SearchResult } from "../../Components/SearchResult";
 import Spinner from "../../Components/Spinner";
 
@@ -124,7 +124,7 @@ export default function MapPage() {
             onViewportChange={setViewport}
             mapboxApiAccessToken={mapboxToken}
           >
-            {mapData.map((res) =>
+            {mapData?.map((res) =>
               drawMarker(res, () => {
                 setSelectedResidence(res);
                 focusOn(+res.latitud, +res.longitud);
