@@ -18,7 +18,7 @@ export default function ResidentSection() {
 
   return (
     <ResidentArea>
-      <div style={{ position: "sticky", top: '1em' }}>
+      <div style={{ position: "sticky", top: '2em' }}>
         <h3>Residente</h3>
         <FormImgContainer>
           <ImageInput onSelected={(file) => {

@@ -12,7 +12,7 @@ export const useAuthContext = () => {
 };
 
 const initialState = {
-  token: null,
+  token: sessionStorage.getItem("auth-token"),
 };
 
 export const AUTH_ACTIONS = {
@@ -68,6 +68,8 @@ export default function AuthProvider({ children }) {
 
   useEffect(() => {
     axios.defaults.headers.common["auth-token"] = authData.token;
+    if (!authData.token) sessionStorage.removeItem("auth-token");
+    else sessionStorage.setItem("auth-token", authData.token);
     validate(authData.token);
   }, [authData.token]);
 

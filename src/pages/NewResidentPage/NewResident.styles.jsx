@@ -1,12 +1,21 @@
 import styled from "styled-components";
 
+export const LoaderOverlay = styled.div`
+  background-color: #0118;
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const FormArea = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #CCC8;
+  background-color: #ccc8;
   border-radius: 0.4em;
-  margin: 0.2em;
-  padding: 0.5em;
+  padding: 2em;
 
   h3 {
     text-align: left;
@@ -17,11 +26,13 @@ export const FormArea = styled.div`
     margin: 0;
     margin-left: 0;
     padding: 0.2em 0.8em;
+    border-radius: 0.2em;
   }
 `;
 
 export const FormsContainer = styled.div`
   column-gap: 2em;
+  row-gap: 2em;
   max-width: min(80vw, 80em);
   padding: 2em;
   margin: 0 auto;
@@ -105,10 +116,12 @@ export const RemoveButton = styled.button`
 
 export const WideButtonContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  max-width: min(80vw, 80em);
+  margin: auto;
   padding: 2em;
 
-  > button {
-    width: 50%;
+  button {
+    width: 40%;
   }
 `;
