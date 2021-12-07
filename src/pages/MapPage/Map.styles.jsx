@@ -65,7 +65,7 @@ export const StyledMarker = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 0 max(2em, 8vw);
+  padding: 0 max(2em, 8vw) 2em;
   gap: max(2em, 10vw);
 
   > * {

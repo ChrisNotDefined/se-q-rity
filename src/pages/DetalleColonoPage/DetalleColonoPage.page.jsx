@@ -6,9 +6,11 @@ import {
   VerticalContainer,
   MainContainer,
   TranslucidCard,
+  ButtonContainer,
 } from "./DetalleColonoPage.styles";
 import { getCompanion, getPet, getResident, getWorker } from "../../utils/api";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { Button } from "../../StyledComponents/Button";
 
 const PetCard = ({ petID }) => {
   const [petData, setPetData] = useState();
@@ -140,6 +142,7 @@ const WorkerCard = ({ workerID }) => {
 export default function DetalleColono() {
   const { id: idParam } = useParams();
   const [resident, setResident] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResident = async () => {
@@ -168,7 +171,7 @@ export default function DetalleColono() {
           <span>Apellidos:</span> {resident.apellidos}
         </DataTag>
         <DataTag>
-          <span>Apellidos:</span> {resident.apellidos}
+          <span>Telefono:</span> {resident.telefono}
         </DataTag>
         <DataTag>
           <span>Correo:</span> {resident.correo}
@@ -192,6 +195,9 @@ export default function DetalleColono() {
           return <WorkerCard key={workerID} workerID={workerID} />;
         })}
       </CentererContainer>
+      <ButtonContainer>
+        <Button onClick={() => navigate(-1)}>Regresar</Button>
+      </ButtonContainer>
     </MainContainer>
   );
 }

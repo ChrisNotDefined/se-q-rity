@@ -59,7 +59,7 @@ export default function MiPerfil() {
             Buscar Colono
             <Input
               onChange={handleInputWrite}
-              placeholder={"Busqueda de Colono"}
+              placeholder={"Búsqueda de Colono"}
               value={keySearch}
             />
           </label>

@@ -15,6 +15,16 @@ export const MainContainer = styled.div`
   }
 `;
 
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin-top: 2em;
+    width: max(10em, 50%);
+  }
+`;
+
 export const TranslucidCard = styled.div`
   background-color: #fffd;
   border-radius: 0.5em;
